@@ -53,29 +53,32 @@ public class EnemySight : MonoBehaviour
 
     private bool ChekWithRayCasting(Collider c)
     {
-        Physics.Raycast(transform.position, c.transform.position, out RaycastHit hit);
+        Vector3 direction = c.transform.position - transform.position;
+        Physics.Raycast(transform.position, direction, out RaycastHit hit);
+        Debug.Log(hit.rigidbody);
         if (hit.rigidbody)
         {
-            return false;
+            
+            return true;
         }
         else
         {
-            return true;
+            return false;
         }
     }
 
-    private void UpdateAlertStage(bool playerInFov)
+    private void UpdateAlertStage(bool playerInSight)
     {
         switch (alertStage)
         {
             case AlertStage.Peaceful:
-                if (playerInFov)
+                if (playerInSight)
                 {
                     alertStage = AlertStage.Intrigued;
                 }
                 break;
             case AlertStage.Intrigued:
-                if (playerInFov)
+                if (playerInSight)
                 {
                     alertLevel += 100*Time.deltaTime;
                     if (alertLevel >= 100)
