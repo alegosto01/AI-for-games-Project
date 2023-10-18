@@ -8,10 +8,15 @@ public class PatrolState : State
     public Transform[] points = new Transform[2];
     private int destPoint = 0;
     public UnityEngine.AI.NavMeshAgent agent;
+    public ChaseState chaseState;
 
     public override State RunCurrentState() {
         if (!agent.pathPending && agent.remainingDistance < 0.5f) {
             GotoNextPoint();
+        }
+        if (EnemySight.chase)
+        {
+            return chaseState;
         }
         return this;
     }

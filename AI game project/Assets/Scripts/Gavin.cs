@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Gavin : MonoBehaviour
 {
-    public Transform transform;
-
     void Start()
     {
         
