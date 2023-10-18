@@ -1167,6 +1167,7 @@ MonoBehaviour:
   fovAngle: 125
   alertStage: 0
   alertLevel: 0
+  player: {fileID: 575214780}
 --- !u!1 &1199016704
 GameObject:
   m_ObjectHideFlags: 0

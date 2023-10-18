@@ -17,7 +17,8 @@ public class EnemySight : MonoBehaviour
     private Vector3 source;
     public AlertStage alertStage;
     [Range(0, 100)] public float alertLevel;
-    public static bool chase; 
+    public static bool chase;
+    public Collider player;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class EnemySight : MonoBehaviour
     private void Update()
     {
         bool playerInFov = false;
+        bool playerInSight = false;
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
         foreach (Collider c in targetsInFov)
         {
@@ -37,7 +39,11 @@ public class EnemySight : MonoBehaviour
                 break;
             }
         }
-        UpdateAlertStage(playerInFov);
+        if (playerInFov)
+        {
+            playerInSight = ChekWithRayCasting(player);
+        }
+        UpdateAlertStage(playerInSight);
 
         if (alertStage == AlertStage.Alerted)
         {
@@ -45,18 +51,34 @@ public class EnemySight : MonoBehaviour
         }
     }
 
-    private void UpdateAlertStage(bool playerInFov)
+    private bool ChekWithRayCasting(Collider c)
+    {
+        Vector3 direction = c.transform.position - transform.position;
+        Physics.Raycast(transform.position, direction, out RaycastHit hit);
+        Debug.Log(hit.rigidbody);
+        if (hit.rigidbody)
+        {
+            
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void UpdateAlertStage(bool playerInSight)
     {
         switch (alertStage)
         {
             case AlertStage.Peaceful:
-                if (playerInFov)
+                if (playerInSight)
                 {
                     alertStage = AlertStage.Intrigued;
                 }
                 break;
             case AlertStage.Intrigued:
-                if (playerInFov)
+                if (playerInSight)
                 {
                     alertLevel += 100*Time.deltaTime;
                     if (alertLevel >= 100)
