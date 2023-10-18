@@ -17,7 +17,8 @@ public class EnemySight : MonoBehaviour
     private Vector3 source;
     public AlertStage alertStage;
     [Range(0, 100)] public float alertLevel;
-    public static bool chase; 
+    public static bool chase;
+    public Collider player;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class EnemySight : MonoBehaviour
     private void Update()
     {
         bool playerInFov = false;
+        bool playerInSight = false;
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
         foreach (Collider c in targetsInFov)
         {
@@ -37,11 +39,28 @@ public class EnemySight : MonoBehaviour
                 break;
             }
         }
-        UpdateAlertStage(playerInFov);
+        if (playerInFov)
+        {
+            playerInSight = ChekWithRayCasting(player);
+        }
+        UpdateAlertStage(playerInSight);
 
         if (alertStage == AlertStage.Alerted)
         {
             chase = true;
+        }
+    }
+
+    private bool ChekWithRayCasting(Collider c)
+    {
+        Physics.Raycast(transform.position, c.transform.position, out RaycastHit hit);
+        if (hit.rigidbody)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
