@@ -357,8 +357,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 212374520}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.34, y: 0.36, z: -3.32}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.3399997, y: 0.35999998, z: -3.3199997}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,8 +388,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425522809}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.49, y: 0.36, z: 2.77}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.49, y: 0.35999998, z: 2.7699993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1126,7 +1126,8 @@ Transform:
   m_LocalPosition: {x: 3.34, y: 0.36, z: -2.84}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1199016705}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &1172367842
@@ -1163,10 +1164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18af5f05c97e59f44996250ed4e956bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 4.38
+  initial_fov: 3.1
   fovAngle: 125
   alertStage: 0
   alertLevel: 0
+  chase: 0
   player: {fileID: 575214780}
 --- !u!1 &1199016704
 GameObject:
@@ -1192,14 +1194,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1199016704}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2566472, y: 0.049999237, z: 0.022020552}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.277842, y: -1.0333358, z: 9.540068}
+  m_LocalScale: {x: 3.333333, y: 3.333333, z: 3.333333}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1991453685}
   - {fileID: 1908546854}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1172367841}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1675520498
 GameObject:
@@ -1456,7 +1458,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1172367842}
-  target: {fileID: 575214783}
+  target: {fileID: 575214777}
+  agentSpeed: 2
+  patrolState: {fileID: 1991453686}
+  agentInDestination: 0
 --- !u!1 &1963462347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,6 +1721,7 @@ MonoBehaviour:
   - {fileID: 425522810}
   agent: {fileID: 1172367842}
   chaseState: {fileID: 1908546855}
+  agentSpeed: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1725,6 +1731,5 @@ SceneRoots:
   - {fileID: 667433340}
   - {fileID: 575214783}
   - {fileID: 1172367841}
-  - {fileID: 1199016705}
   - {fileID: 212374521}
   - {fileID: 425522810}

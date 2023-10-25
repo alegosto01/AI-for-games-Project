@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class PatrolState : State
 {
-    // public bool patrolState;
-    public Transform[] points = new Transform[2];
-    private int destPoint = 0;
+    public Transform[] points = new Transform[2]; // the 2 points between which the agent will patrol
+    private int destPoint = 0; // the index of the current destination in the list above
     public UnityEngine.AI.NavMeshAgent agent;
     public ChaseState chaseState;
+    public float agentSpeed = 3;
+    EnemySight enemySight; // the EnemySight component of the enemy
 
-    public override State RunCurrentState() {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f) {
+    private void Start()
+    {
+        enemySight = GetComponentInParent<EnemySight>();
+    }
+
+    public override State RunCurrentState() 
+    {
+        // if the remaining distance between the agent and its destination is less than 0.1 then he should move to the next target in the list
+        if (agent.remainingDistance < 0.1f) 
+        {
             GotoNextPoint();
         }
-        if (EnemySight.chase)
+        // if the agent is alerted by the player switch to the chase state
+        if (enemySight.chase)
         {
             return chaseState;
         }
@@ -22,22 +32,15 @@ public class PatrolState : State
     }
 
 
-    void GotoNextPoint() {
+    void GotoNextPoint() 
+    {
         if (points.Length == 0)
             return;
 
-        agent.destination = points[destPoint].position;
+        agent.speed = agentSpeed;
 
+        // set the new destination point and update the destPoint index
+        agent.destination = points[destPoint].position;
         destPoint = (destPoint + 1) % points.Length;
     }
-
-    void Update () {
-        // Choose the next destination point when the agent gets
-        // close to the current one.
-    }
-
-    // void Start(){
-    //     points[0].position = new Vector3(3.33999991f,0.360000014f,-2.58999991f);
-    //     points[1].position = new Vector3(3.33999991f,0.360000014f,2.58999991f);
-    // }
 }
