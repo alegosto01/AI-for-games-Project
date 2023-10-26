@@ -11,6 +11,7 @@ public class PatrolState : State
     public float agentSpeed = 3;
     EnemySight enemySight; // the EnemySight component of the enemy
 
+
     private void Start()
     {
         enemySight = GetComponentInParent<EnemySight>();

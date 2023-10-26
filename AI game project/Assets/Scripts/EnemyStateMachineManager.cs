@@ -6,10 +6,23 @@ public class EnemyStateMachineManager : MonoBehaviour
 {
     
     public State currentState;
+    public bool isThereNoise = false;
+    public float noiseTimer = 1;
+    public GameManager gameManager;
+    public Vector3 gavinPosition;
 
 
     void Update() {
         RunStateMachine();
+
+
+        if(isThereNoise) {
+            noiseTimer -= Time.deltaTime;
+        }
+        if(noiseTimer <= 0) {
+            isThereNoise = false;
+            noiseTimer = 1;
+        }
     }
 
 
@@ -23,5 +36,14 @@ public class EnemyStateMachineManager : MonoBehaviour
 
     private void SwitchToNextState(State nextState) {
         currentState = nextState;
+    }
+    public void NewNoise(float loudness) {
+
+        gavinPosition = gameManager.gavin.transform.position;
+
+        if(Vector3.Distance(gavinPosition, transform.position) < loudness) {
+            isThereNoise = true;
+        }
+
     }
 }

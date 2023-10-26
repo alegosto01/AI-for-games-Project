@@ -56,7 +56,6 @@ public class ChaseState : State
                 return patrolState;
             }
         }
-
         return this;
     }
 }

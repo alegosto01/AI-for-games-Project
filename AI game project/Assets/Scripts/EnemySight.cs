@@ -66,7 +66,7 @@ public class EnemySight : MonoBehaviour
         // if the player is in the arc area check is he is also in sight. If so playerInSight will be set to true
         if (playerInFov)
         {
-            playerInSight = ChekWithRayCasting(player);
+            playerInSight = CheckWithRayCasting(player);
         }
         // update the alert stage according to if the player is in sight or not
         UpdateAlertStage(playerInSight);
@@ -77,10 +77,9 @@ public class EnemySight : MonoBehaviour
             current_fov = 3 * initial_fov;
             chase = true;
         }
-    }
-    
+    }    
     // a function that returns true or false depending on if the player is in sight, when he already is in the arc area
-    private bool ChekWithRayCasting(Collider c)
+    private bool CheckWithRayCasting(Collider c)
     {
         Vector3 direction = c.transform.position - transform.position;
         Physics.Raycast(transform.position, direction, out RaycastHit hit, maxRayDistance);
