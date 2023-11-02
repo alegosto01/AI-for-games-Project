@@ -19,8 +19,8 @@ public class PatrolState : State
 
     public override State RunCurrentState() 
     {
-        // if the remaining distance between the agent and its destination is less than 0.1 then he should move to the next target in the list
-        if (agent.remainingDistance < 0.1f) 
+        // if the remaining distance between the agent and its destination is less than 0.5 then he should move to the next target in the list
+        if (agent.remainingDistance <= 0.5f) 
         {
             GotoNextPoint();
         }

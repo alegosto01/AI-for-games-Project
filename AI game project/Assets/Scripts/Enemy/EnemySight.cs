@@ -12,8 +12,7 @@ public enum AlertStage
 
 public class EnemySight : MonoBehaviour
 {
-    public float initial_fov; // the initial radius of the arc in which the agent "sees"
-    private float current_fov; // the radius of the arc in each frame which will be either equal to the initial or 3 times bigger(in alerted state)
+    public float fov;  // The radius of the arc 
     [Range(0, 360)] public float fovAngle; // the angle of the ark
     private Vector3 source; // a variable used only for drawing the ark. Not important
     public AlertStage alertStage; 
@@ -37,17 +36,12 @@ public class EnemySight : MonoBehaviour
 
     private void Update()
     {
-        // if the agent is not in alert stage set the radius of the arc to the initial value
-        if (alertStage != AlertStage.Alerted)
-        {
-            current_fov = initial_fov;
-        }
         chase = false;
         bool playerInFov = false; // if the player is in the arc area
         bool playerInSight = false; // if at the same time the player is not blocked by a wall or something else
 
         // create a list with all the colliders that are present in a round area around the agent with radius fov
-        Collider[] targetsInFov = Physics.OverlapSphere(transform.position, current_fov);
+        Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
         // iterate through all of them and if one of them is the player set playerInFov to true
         foreach (Collider c in targetsInFov)
         {
@@ -74,8 +68,7 @@ public class EnemySight : MonoBehaviour
         // if the agent is alerted then the chase will begin (chase=true) and the radius of the arc will be much bigger
         if (alertStage == AlertStage.Alerted)
         {
-            current_fov = 3 * initial_fov;
-            chase = true;
+            chase = true;   
         }
     }    
     // a function that returns true or false depending on if the player is in sight, when he already is in the arc area
@@ -134,7 +127,7 @@ public class EnemySight : MonoBehaviour
             case AlertStage.Alerted:
                 /* if the alert stage is currently alerted and the player is not in sight, and at the same time the agent is where he saw the player for
                 the last time then the alert stage should be updated back to intrigued */
-                if (!playerInSight && chaseState.agentInDestination)
+                if (!chaseState.canSeeThePlayer && chaseState.agentInDestination)
                 {
                     alertStage = AlertStage.Intrigued;
                 }
@@ -156,6 +149,6 @@ public class EnemySight : MonoBehaviour
             c = Color.red;
         }
         Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, current_fov);
+        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
     }
 }

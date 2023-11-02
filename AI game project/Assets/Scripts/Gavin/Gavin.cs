@@ -72,10 +72,6 @@ public class Gavin : MonoBehaviour
 
         Moving();
 
-        if(transform.position.x > 5) {
-            Debug.Log("You won!");
-        }
-
         //Exploring();
         // if (playerInFov)
         // {
@@ -90,7 +86,7 @@ public class Gavin : MonoBehaviour
     }
 
     public void MakeNoise() {
-        Debug.Log("make noise");
+        //Debug.Log("make noise");
         manager.NewNoise(noiseFov);
     }
 
