@@ -27,14 +27,14 @@ public class GavinVision : MonoBehaviour
                 // check if the enemy is also in the arc area
                 if (Mathf.Abs(signedAngle) < fovAngle / 2)
                 {
-                    enemiesInFov = true;    
+                    //enemiesInFov = true;    
                     enemiesInArc.Add(c.gameObject);
                 }
             }
         }
 
         // if the enemy is in the arc area check is he is also in sight. If so playerInSight will be set to true
-        Debug.Log(enemiesInArc.Count);
+        //Debug.Log(enemiesInArc.Count);
         if (enemiesInArc.Count > 0)
         {
             bool enemyInSight;

@@ -37,9 +37,9 @@ public class EnemyStateMachineManager : MonoBehaviour
     private void SwitchToNextState(State nextState) {
         currentState = nextState;
     }
-    public void NewNoise(float loudness) {
+   public void NewNoise(float loudness, Vector3 gavinPosition) {
 
-        gavinPosition = gameManager.gavin.transform.position;
+        this.gavinPosition = gavinPosition;
 
         if(Vector3.Distance(gavinPosition, transform.position) < loudness) {
             isThereNoise = true;

@@ -41,19 +41,11 @@ public class Gavin : MonoBehaviour
     public EnemyStateMachineManager manager;
     public Vector3 startPosition;
 
-    // public GameObject[] directions = new GameObject[5];
-    // public ExploringDirections[] exploringDirections = new ExploringDirections[5];
-
     void Start()
     {
         gavinSpeed = runningSpeed;
         noiseFov = noiseRadiusRunning;
         previousPositions.Add(startPosition);  
-        // exploringDirections[0] = directions[0].GetComponent<ExploringDirections>(); 
-        // exploringDirections[1] = directions[1].GetComponent<ExploringDirections>(); 
-        // exploringDirections[2] = directions[2].GetComponent<ExploringDirections>(); 
-        // exploringDirections[3] = directions[3].GetComponent<ExploringDirections>(); 
-        // exploringDirections[4] = directions[4].GetComponent<ExploringDirections>(); 
     }
 
     void Update()
@@ -72,22 +64,12 @@ public class Gavin : MonoBehaviour
 
         Moving();
 
-        //Exploring();
-        // if (playerInFov)
-        // {
-        //     playerInSight = ChekWithRayCasting(player);
-        // }
-        // UpdateAlertStage(playerInSight);
-
-        // if (alertStage == AlertStage.Alerted)
-        // {
-        //     chase = true;
-        // }
+    
     }
 
-    public void MakeNoise() {
-        //Debug.Log("make noise");
-        manager.NewNoise(noiseFov);
+     public void MakeNoise() {
+        Debug.Log("make noise");
+        gameManager.NewNoise(noiseFov);
     }
 
     public void Moving() {
@@ -161,16 +143,7 @@ public class Gavin : MonoBehaviour
         
     }
 
-    // public void Exploring() {
-    //     int directionCount = 0;
-    //     directionCount += exploringDirections[0].isTriggered ? 0 : 1;
-    //     directionCount += exploringDirections[1].isTriggered ? 0 : 1;
-    //     directionCount -= exploringDirections[3].isTriggered ? 0 : 1;
-    //     directionCount -= exploringDirections[4].isTriggered ? 0 : 1;
-
-    //     Debug.Log(directionCount);
-    //     Quaternion direction = Quaternion.Euler(0, 30.0f, 0);
-    // }
+   
 
     private void OnDrawGizmos()
     {
@@ -183,14 +156,7 @@ public class Gavin : MonoBehaviour
         // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
         // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
         Color c = Color.red;
-        // if (alertStage == AlertStage.Intrigued)
-        // {
-        //     c = Color.Lerp(Color.green, Color.red, alertLevel / 100f);
-        // }
-        // else if (alertStage == AlertStage.Alerted)
-        // {
-        //     c = Color.red;
-        // }
+       
         Handles.color = c;
         Handles.DrawSolidArc(transform.position, transform.up, visionSourceRightForward, visionFovAngle, visionFov);
         Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeftForward, visionFovAngle, visionFov);
@@ -200,14 +166,7 @@ public class Gavin : MonoBehaviour
 
         noiseSource = Quaternion.AngleAxis(-noiseFovAngle / 2, transform.up) * transform.forward;
         Color soundColor = Color.blue;
-        // if (alertStage == AlertStage.Intrigued)
-        // {
-        //     c = Color.Lerp(Color.green, Color.red, alertLevel / 100f);
-        // }
-        // else if (alertStage == AlertStage.Alerted)
-        // {
-        //     c = Color.red;
-        // }
+      
         Handles.color = soundColor;
         Handles.DrawSolidArc(transform.position, transform.up, noiseSource, noiseFovAngle, noiseFov);
     }

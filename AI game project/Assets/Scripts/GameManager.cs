@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public List<GameObject> enemies = new List<GameObject>();
+
     public GameObject gavin;
     public GameObject enemy;
     public bool isGavinMoving = false;
@@ -36,9 +38,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void newNoise(){
-    	/* for tutti i nemici, call newnoise with gavin position
-    	questa funzione viene chiamata da gavin quando fa rumore*/
+    public void NewNoise(float loudness){
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.GetComponent<EnemyStateMachineManager>().NewNoise(loudness, gavin.transform.position);   
+        }
     }
 
     private void DeathControl()
