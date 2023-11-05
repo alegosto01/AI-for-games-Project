@@ -29,6 +29,7 @@ public class GavinVision : MonoBehaviour
                 {
                     //enemiesInFov = true;    
                     enemiesInArc.Add(c.gameObject);
+                    
                 }
             }
         }
