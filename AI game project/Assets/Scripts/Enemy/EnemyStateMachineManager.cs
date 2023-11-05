@@ -7,21 +7,20 @@ public class EnemyStateMachineManager : MonoBehaviour
     
     public State currentState;
     public bool isThereNoise = false;
-    public float noiseTimer = 1;
+    public float noiseTimer = 0.5f;
     public GameManager gameManager;
-    public Vector3 gavinPosition;
+    public Vector3 lastSoundPosition;
 
 
     void Update() {
         RunStateMachine();
-
 
         if(isThereNoise) {
             noiseTimer -= Time.deltaTime;
         }
         if(noiseTimer <= 0) {
             isThereNoise = false;
-            noiseTimer = 1;
+            noiseTimer = 0.5f;
         }
     }
 
@@ -37,13 +36,14 @@ public class EnemyStateMachineManager : MonoBehaviour
     private void SwitchToNextState(State nextState) {
         currentState = nextState;
     }
-   public void NewNoise(float loudness, Vector3 gavinPosition) {
 
-        this.gavinPosition = gavinPosition;
+    //public void NewNoise(float loudness, Vector3 gavinPosition) {
+    //    Debug.Log("Something");
+    //    noiseTimer = 1;
+    //    if (Vector3.Distance(gavinPosition, transform.position) < loudness) {
+    //        lastSoundPosition = gavinPosition;
+    //        isThereNoise = true;
+    //    }
 
-        if(Vector3.Distance(gavinPosition, transform.position) < loudness) {
-            isThereNoise = true;
-        }
-
-    }
+    //}
 }

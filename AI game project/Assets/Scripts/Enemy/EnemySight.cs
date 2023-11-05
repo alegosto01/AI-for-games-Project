@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public enum AlertStage
 {
@@ -22,6 +23,14 @@ public class EnemySight : MonoBehaviour
     private float maxRayDistance = 7;
     ChaseState chaseState; // the ChaseStae component of the Chase State object
 
+    public GameObject manager;
+    private GameManager gameManager;
+    public GameObject gavin;
+    Gavin gavinScript;
+    public bool noiseHeard;
+    //public float minHearingDistance = 3;
+
+    //public Tuple<Vector3, bool> hearingInfo;
 
     private void Awake()
     {
@@ -32,6 +41,8 @@ public class EnemySight : MonoBehaviour
     private void Start()
     {
         chaseState = gameObject.GetComponentInChildren<ChaseState>();
+        gameManager = manager.GetComponent<GameManager>();
+        gavinScript = gavin.GetComponent<Gavin>();
     }
 
     private void Update()
@@ -62,13 +73,17 @@ public class EnemySight : MonoBehaviour
         {
             playerInSight = CheckWithRayCasting(player);
         }
+
+        // check if the player was heard
+        noiseHeard = HearingControl();
+
         // update the alert stage according to if the player is in sight or not
-        UpdateAlertStage(playerInSight);
+        UpdateAlertStage(playerInSight, noiseHeard);
 
         // if the agent is alerted then the chase will begin (chase=true) and the radius of the arc will be much bigger
         if (alertStage == AlertStage.Alerted)
         {
-            chase = true;   
+            chase = true;
         }
     }    
     // a function that returns true or false depending on if the player is in sight, when he already is in the arc area
@@ -90,21 +105,49 @@ public class EnemySight : MonoBehaviour
         }
     }
 
+    bool HearingControl()
+    {
+        bool noiseHeard = false;
+        if (gameManager.soundExists)
+        {
+            if (Vector3.Distance(gameManager.lastSoundPosition, transform.position) <= gavinScript.noiseFov)
+            {
+                noiseHeard = true;
+            }
+        }
+        return noiseHeard;
+    }
+    //Tuple<Vector3, bool> hearingControl()
+    //{
+    //    bool noiseHeard = false;
+    //    Vector3 lastNoiseHeard = transform.position;
+    //    foreach (List<object> noiseInfo in gameManager.noisePositions)
+    //    {
+    //        if (Vector3.Distance((Vector3)noiseInfo[0], transform.position) <= minHearingDistance)
+    //        {
+    //            lastNoiseHeard = (Vector3)noiseInfo[0];
+    //            noiseHeard = true;
+    //        }
+    //    }
+
+    //    return new Tuple<Vector3, bool>(lastNoiseHeard, noiseHeard);
+    //}
+
     // a function that updates the alert stage depending on if the player is in sight or not
-    private void UpdateAlertStage(bool playerInSight)
+    private void UpdateAlertStage(bool playerInSight, bool isThereNoise)
     {
         switch (alertStage)
         {
             case AlertStage.Peaceful:
-                // if the alert stage is currently peaceful and the player is in sight the alert stage should be updated to intrigued
-                if (playerInSight)
+                // if the alert stage is currently peaceful and the player is in sight (or heard) the alert stage should be updated to intrigued
+                if (playerInSight || isThereNoise)
                 {
                     alertStage = AlertStage.Intrigued;
                 }
                 break;
             case AlertStage.Intrigued:
-                // if the alert stage is currently intrigued and the player is in sight the alert level should start to increase
-                if (playerInSight)
+                // if the alert stage is currently intrigued and the player is in sight (or heard) the alert level should start to increase
+                if (playerInSight || isThereNoise)
                 {
                     alertLevel += 100*Time.deltaTime;
                     // if the alert lever is equal to or more than 100 then the alert stage should be updated to alerted
@@ -113,7 +156,7 @@ public class EnemySight : MonoBehaviour
                         alertStage = AlertStage.Alerted;
                     }
                 }
-                // if the alert stage is currently intrigued and the player is not in sight the alert level should start to decrease
+                // if the alert stage is currently intrigued and the player is not in sight (or heard) the alert level should start to decrease
                 else
                 {
                     alertLevel -= 100*Time.deltaTime;
@@ -125,9 +168,12 @@ public class EnemySight : MonoBehaviour
                 }
                 break;
             case AlertStage.Alerted:
-                /* if the alert stage is currently alerted and the player is not in sight, and at the same time the agent is where he saw the player for
+                /* if the alert stage is currently alerted and the player is not in sight (or heard), and at the same time the agent is where he saw the player for
                 the last time then the alert stage should be updated back to intrigued */
-                if (!chaseState.canSeeThePlayer && chaseState.agentInDestination)
+                //Debug.Log("!canSeeThePlayer = " + !chaseState.canSeeThePlayer);
+                //Debug.Log("agentInDestination = " + chaseState.agentInDestination);
+                //Debug.Log("!isThereNoise = " + !isThereNoise);
+                if (!chaseState.canSeeThePlayer && chaseState.agentInDestination && !isThereNoise)
                 {
                     alertStage = AlertStage.Intrigued;
                 }

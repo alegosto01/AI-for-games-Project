@@ -12,7 +12,6 @@ public class Navigation : MonoBehaviour
         for(int i = -5; i < 5; i++) {
             for(int j = -5; j < 5; j++) {
                 squares.Add(new Vector3(i+0.5f,0, j+0.5f));
-                
             }
         }
     }

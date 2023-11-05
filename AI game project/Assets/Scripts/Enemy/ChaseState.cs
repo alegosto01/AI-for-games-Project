@@ -13,9 +13,20 @@ public class ChaseState : State
     public PatrolState patrolState;
     public AttackState attackState;
     public bool agentInDestination; // true if the agent has arrived to the last point where he saw the player
-    private float timer = 0f;
+    private float timer = 0.5f;
     private float timeBetweenCalls = 0.5f;
     private float stopingDistance = 0.5f;  // the distance from the destination where the agent considers that he has arrived
+
+    public EnemySight enemySight;
+
+    public GameObject manager;
+    GameManager gameManager;
+
+    private void Start()
+    {
+        enemySight = GetComponentInParent<EnemySight>();
+        gameManager = manager.GetComponent<GameManager>();
+    }
 
     public override State RunCurrentState()
     {
@@ -42,15 +53,22 @@ public class ChaseState : State
         {
             lastPosition = target.transform.position;
         }
+        // if the agent cant see the player but he can hear him instead update the last position were the was heard
+        else if (enemySight.noiseHeard)
+        {
+            lastPosition = gameManager.lastSoundPosition;
+        }
 
         // increase the value of time by the time that passed since the last frame, and if this is more than half of a second the update the destination
-        timer += Time.deltaTime;
+        
         if (timer >= timeBetweenCalls)
         {
             agent.speed = agentSpeed;
             agent.stoppingDistance = stopingDistance;
             agent.destination = lastPosition;
+            timer = 0;
         }
+        timer += Time.deltaTime;
 
         /* if the agent arrived to the last position were the player was seen and he can't see the player then he goes back to patrol state. If he can
         see him then he keeps chasing him */

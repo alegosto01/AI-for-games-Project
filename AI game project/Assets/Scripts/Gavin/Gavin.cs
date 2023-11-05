@@ -10,7 +10,8 @@ public class Gavin : MonoBehaviour
     // moving variables
     public Vector3 lastPosition;
 
-    public float noiseTimer = 0.25f;
+    public float noiseTimer = 0.5f;
+    public float noiseFrequency = 0.5f;
     public bool isMoving = false;
     public bool stealth = false;
 
@@ -21,8 +22,8 @@ public class Gavin : MonoBehaviour
 
     //noise generation variables
     //public float makingNoisefrequency = 2;  //times per second
-    public float noiseRadiusStealth = 1;
-    public float noiseRadiusRunning = 2.5f;
+    public float noiseRadiusStealth = 2f;
+    public float noiseRadiusRunning = 4f;
     public float noiseFov;
     [Range(0, 360)] public float noiseFovAngle;
     private Vector3 noiseSource;
@@ -67,10 +68,10 @@ public class Gavin : MonoBehaviour
     
     }
 
-     public void MakeNoise() {
-        Debug.Log("make noise");
-        gameManager.NewNoise(noiseFov);
-    }
+    // public void MakeNoise() {
+    //    Debug.Log("make noise");
+    //    gameManager.NewNoise(noiseFov);
+    //}
 
     public void Moving() {
         //Controls of gavin movement
@@ -81,64 +82,64 @@ public class Gavin : MonoBehaviour
         {
             isMoving = false;
             gameManager.isGavinMoving = false;        
-            noiseTimer = 0.25f;
+            //noiseTimer = noiseFrequency;
         }        
 
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
             isMoving = true;
-            gameManager.isGavinMoving = true;
+            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(0,0,gavinSpeed) * Time.deltaTime;
-            lastPosition = transform.position;
-            noiseTimer -= 1 * Time.deltaTime;
+            //lastPosition = transform.position;
+            //noiseTimer -= 1 * Time.deltaTime;
             
-            if(noiseTimer <= 0) {
-                MakeNoise();
-                noiseTimer = 0.25f;
-            }
+            //if(noiseTimer <= 0) {
+            //    MakeNoise();
+            //    noiseTimer = noiseFrequency;
+            //}
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
             isMoving = true;
-            gameManager.isGavinMoving = true;
+            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(0,0,-gavinSpeed) * Time.deltaTime;
-            lastPosition = transform.position;
+            //lastPosition = transform.position;
 
-            noiseTimer -= 1 * Time.deltaTime;
+            //noiseTimer -= 1 * Time.deltaTime;
             
-            if(noiseTimer <= 0) {
-                MakeNoise();
-                noiseTimer = 0.25f;
-            }
+            //if(noiseTimer <= 0) {
+            //    MakeNoise();
+            //    noiseTimer = noiseFrequency;
+            //}
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
             isMoving = true;
-            gameManager.isGavinMoving = true;
+            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(gavinSpeed,0,0) * Time.deltaTime;
-            lastPosition = transform.position;
+            //lastPosition = transform.position;
 
-            noiseTimer -= 1 * Time.deltaTime;
+            //noiseTimer -= 1 * Time.deltaTime;
             
-            if(noiseTimer <= 0) {
-                MakeNoise();
-                noiseTimer = 0.25f;
-            }
+            //if(noiseTimer <= 0) {
+            //    MakeNoise();
+            //    noiseTimer = noiseFrequency;
+            //}
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             isMoving = true;
-            gameManager.isGavinMoving = true;
+            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(-gavinSpeed,0,0) * Time.deltaTime;
-            lastPosition = transform.position;
+            //lastPosition = transform.position;
 
-            noiseTimer -= 1 * Time.deltaTime;
+            //noiseTimer -= 1 * Time.deltaTime;
             
-            if(noiseTimer <= 0) {
-                MakeNoise();
-                noiseTimer = 0.25f;
-            }
+            //if(noiseTimer <= 0) {
+            //    MakeNoise();
+            //    noiseTimer = noiseFrequency;
+            //}
         }
         
     }
