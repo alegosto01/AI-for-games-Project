@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -543,6 +543,7 @@ GameObject:
   - component: {fileID: 575214786}
   - component: {fileID: 575214785}
   - component: {fileID: 575214787}
+  - component: {fileID: 575214788}
   m_Layer: 0
   m_Name: Gavin
   m_TagString: Player
@@ -574,7 +575,7 @@ MonoBehaviour:
   noiseRadiusStealth: 1
   noiseRadiusRunning: 2.5
   noiseFov: 2.51
-  noiseFovAngle: 360
+  noiseFovAngle: 0
   visionFov: 0
   visionFovAngle: 0
   previousPositions: []
@@ -744,6 +745,22 @@ MonoBehaviour:
   enemiesDetected: 0
   enemiesInArc: []
   enemiesInSight: []
+--- !u!114 &575214788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575214777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372cf82b98723a8d4a6721be5cc6b7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fov: 95
+  radius: 6
+  squares: []
+  seenSquares: []
 --- !u!1 &667433339
 GameObject:
   m_ObjectHideFlags: 0
