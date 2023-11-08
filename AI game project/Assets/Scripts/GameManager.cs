@@ -1,18 +1,17 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> enemies = new List<GameObject>();
 
-    public GameObject gavin;
-    public GameObject enemy;
-    public bool isGavinMoving = false;
-    private float soundTimer = 0.0f;
-    private float soundFrequency = 2.0f;
+    public NavMeshAgent gavin;
+    public NavMeshAgent enemy;
     public bool soundExists = false;
     public List<List<object>> noisePositions = new List<List<object>>();
     public Vector3 lastSoundPosition;
@@ -23,16 +22,22 @@ public class GameManager : MonoBehaviour
     private bool enemiesWon = false;
     public Text gameOverText;  // text that will be displayer when the game is over
 
-    public float noiseDuration = 1.0f;
-    //private Vector3 gavinsPreviousPosition;
-    
+    // variables to check if gavin is moving
+    public bool gavinIsMoving= false;
+    public bool gavinJustStartedMoving = false;
+
+    // variables to control sounds
+    private float soundTimer = 0.0f;
+    private float soundFrequency = 2.0f;
+
+
+
     void Start()
     {
-        gavinStats = gavin.GetComponent<GavinStats>();
-        enemyStats = enemy.GetComponent<EnemyStats>();
+        gavinStats = gavin.gameObject.GetComponent<GavinStats>();
+        enemyStats = enemy.gameObject.GetComponent<EnemyStats>();
 
         gameOverText.gameObject.SetActive(false);
-        //gavinsPreviousPosition = gavin.transform.position;
     }
 
     // Update is called once per frame
@@ -51,83 +56,59 @@ public class GameManager : MonoBehaviour
     // a function that turns isGavingMoving to true or false depending on if gavin is moving
     void GavinMovingControl()
     {
-        //Vector3 gavinsCurrentPosition = gavin.transform.position;
-        if (gavin.GetComponent<Gavin>().isMoving)
+        gavinJustStartedMoving = false;
+        if (gavin.velocity.magnitude != 0)
         {
-            isGavinMoving = true;
-            soundExists = true;
-            lastSoundPosition = gavin.transform.position;
+            if (!gavinIsMoving)
+            {
+                gavinJustStartedMoving = true;
+            }
+            gavinIsMoving = true;
         }
         else
         {
-            isGavinMoving = false;
-            soundExists = false;
-            soundTimer = 0;
+            gavinIsMoving = false;
         }
-        //gavinsPreviousPosition = gavinsCurrentPosition;
     }
 
-    /* a function that adds a noise and the time that it was created in the noisePositions list and it removes noises that were created more than 
-     * noiseDuration ago */
+    /* a function that creates a noise every time that gavin just started moving or every 1/soundFrequency seconds if gavin is moving continuously.
+     * If gavin is not moving for more then 1/soundFrequency seconds then soundExists = false */
     void HandleSoundPosition()
     {
-        //List<List<object>> noisesToBeRemoved = new List<List<object>>();
-        //timer += Time.deltaTime;
-        //if (isGavinMoving)
-        //{
-        //    noisePositions.Add(new List<object> {gavin.transform.position, timer});
-        //}
-        //foreach (List<object> noiseInfo in  noisePositions)
-        //{
-        //    if ((timer - (float)noiseInfo[1]) > noiseDuration)
-        //    {
-        //        noisesToBeRemoved.Add(noiseInfo);
-        //    }
-        //}
-        //foreach (List<object> noiseInfo in noisesToBeRemoved)
-        //{
-        //    noisePositions.Remove(noiseInfo);
-        //}
-        //noisesToBeRemoved.Clear();
-
         soundTimer += Time.deltaTime;
-        if (isGavinMoving && (soundTimer > 1 / soundFrequency))
+        if (gavinJustStartedMoving)
         {
-            //soundExists = true;
+            soundExists = true;
             lastSoundPosition = gavin.transform.position;
             soundTimer = 0;
         }
-        //else if (soundTimer > 1 / soundFrequency)
-        //{
-        //    soundExists = false;
-        //    soundTimer = 0;
-        //}
+        else if (gavinIsMoving && soundTimer >= (1 / soundFrequency))
+        {
+            soundExists = true;
+            lastSoundPosition = gavin.transform.position;
+            soundTimer = 0;
+        }
+        else if (soundTimer >= (1 / soundFrequency))
+        {
+            soundExists = false;
+        }
     }
-
-    //public void NewNoise(float loudness){
-    //    foreach (GameObject enemy in enemies)
-    //    {
-    //        enemy.GetComponent<EnemyStateMachineManager>().NewNoise(loudness, gavin.transform.position);   
-    //    }
-
-    //   // HandleNoisePositions();
-    //}
 
     private void DeathControl()
     {
         if (gavinStats.health <= 0)
         {
-            gavin.SetActive(false);
+            gavin.gameObject.SetActive(false);
         }
         if (enemyStats.health <= 0)
         {
-            enemy.SetActive(false);
+            enemy.gameObject.SetActive(false);
         }
     }
 
     private void GameOverCondition()
     {
-        if (!gavin.activeSelf)
+        if (!gavin.gameObject.activeSelf)
         {
             enemiesWon = true;
         }

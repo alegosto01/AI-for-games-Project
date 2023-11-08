@@ -19,7 +19,7 @@ public class EnemySight : MonoBehaviour
     public AlertStage alertStage; 
     [Range(0, 100)] public float alertLevel;
     public bool chase; // when the agent is in alert stage then this is true. We use it to go from patrol to chase
-    public Collider player; 
+    private Collider player; 
     private float maxRayDistance = 7;
     ChaseState chaseState; // the ChaseStae component of the Chase State object
 
@@ -28,9 +28,6 @@ public class EnemySight : MonoBehaviour
     public GameObject gavin;
     Gavin gavinScript;
     public bool noiseHeard;
-    //public float minHearingDistance = 3;
-
-    //public Tuple<Vector3, bool> hearingInfo;
 
     private void Awake()
     {
@@ -63,6 +60,7 @@ public class EnemySight : MonoBehaviour
                 if (Mathf.Abs(signedAngle) < fovAngle / 2)
                 {
                     playerInFov = true;
+                    player = c;
                 }
                 break;
             }
@@ -73,7 +71,7 @@ public class EnemySight : MonoBehaviour
         {
             playerInSight = CheckWithRayCasting(player);
         }
-
+        Debug.Log("playerInSight = " + playerInSight);
         // check if the player was heard
         noiseHeard = HearingControl();
 
@@ -117,21 +115,6 @@ public class EnemySight : MonoBehaviour
         }
         return noiseHeard;
     }
-    //Tuple<Vector3, bool> hearingControl()
-    //{
-    //    bool noiseHeard = false;
-    //    Vector3 lastNoiseHeard = transform.position;
-    //    foreach (List<object> noiseInfo in gameManager.noisePositions)
-    //    {
-    //        if (Vector3.Distance((Vector3)noiseInfo[0], transform.position) <= minHearingDistance)
-    //        {
-    //            lastNoiseHeard = (Vector3)noiseInfo[0];
-    //            noiseHeard = true;
-    //        }
-    //    }
-
-    //    return new Tuple<Vector3, bool>(lastNoiseHeard, noiseHeard);
-    //}
 
     // a function that updates the alert stage depending on if the player is in sight or not
     private void UpdateAlertStage(bool playerInSight, bool isThereNoise)
@@ -170,9 +153,6 @@ public class EnemySight : MonoBehaviour
             case AlertStage.Alerted:
                 /* if the alert stage is currently alerted and the player is not in sight (or heard), and at the same time the agent is where he saw the player for
                 the last time then the alert stage should be updated back to intrigued */
-                //Debug.Log("!canSeeThePlayer = " + !chaseState.canSeeThePlayer);
-                //Debug.Log("agentInDestination = " + chaseState.agentInDestination);
-                //Debug.Log("!isThereNoise = " + !isThereNoise);
                 if (!chaseState.canSeeThePlayer && chaseState.agentInDestination && !isThereNoise)
                 {
                     alertStage = AlertStage.Intrigued;

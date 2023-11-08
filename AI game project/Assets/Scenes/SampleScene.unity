@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -472,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 425522809}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.49, y: 0.35999998, z: 2.7699993}
+  m_LocalPosition: {x: -3.45, y: 0.35999998, z: 2.7699993}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -568,7 +568,6 @@ MonoBehaviour:
   lastPosition: {x: 0, y: 0, z: 0}
   noiseTimer: 0.25
   noiseFrequency: 0.5
-  isMoving: 0
   stealth: 0
   stealthSpeed: 2
   runningSpeed: 4
@@ -2044,15 +2043,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 1172367834}
-  gavin: {fileID: 575214777}
-  enemy: {fileID: 1172367834}
-  isGavinMoving: 0
+  gavin: {fileID: 575214789}
+  enemy: {fileID: 1172367842}
   soundExists: 0
   lastSoundPosition: {x: 0, y: 0, z: 0}
   gavinStats: {fileID: 0}
   enemyStats: {fileID: 0}
   gameOverText: {fileID: 1668221850}
-  noiseDuration: 1
+  gavinIsMoving: 0
+  gavinJustStartedMoving: 0
 --- !u!4 &1833606495
 Transform:
   m_ObjectHideFlags: 0

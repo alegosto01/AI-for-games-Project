@@ -12,7 +12,6 @@ public class Gavin : MonoBehaviour
 
     public float noiseTimer = 0.5f;
     public float noiseFrequency = 0.5f;
-    public bool isMoving = false;
     public bool stealth = false;
 
     //speed variables
@@ -68,78 +67,27 @@ public class Gavin : MonoBehaviour
     
     }
 
-    // public void MakeNoise() {
-    //    Debug.Log("make noise");
-    //    gameManager.NewNoise(noiseFov);
-    //}
-
     public void Moving() {
         //Controls of gavin movement
 
-        //if is not moving change the variables "isMoving"
-
-        if(isMoving && GetComponent<Rigidbody>().velocity.magnitude == 0)
-        {
-            isMoving = false;
-            gameManager.isGavinMoving = false;        
-            //noiseTimer = noiseFrequency;
-        }        
+        //if is not moving change the variables "isMoving"   
 
 
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            isMoving = true;
-            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(0,0,gavinSpeed) * Time.deltaTime;
-            //lastPosition = transform.position;
-            //noiseTimer -= 1 * Time.deltaTime;
-            
-            //if(noiseTimer <= 0) {
-            //    MakeNoise();
-            //    noiseTimer = noiseFrequency;
-            //}
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            isMoving = true;
-            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(0,0,-gavinSpeed) * Time.deltaTime;
-            //lastPosition = transform.position;
-
-            //noiseTimer -= 1 * Time.deltaTime;
-            
-            //if(noiseTimer <= 0) {
-            //    MakeNoise();
-            //    noiseTimer = noiseFrequency;
-            //}
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            isMoving = true;
-            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(gavinSpeed,0,0) * Time.deltaTime;
-            //lastPosition = transform.position;
-
-            //noiseTimer -= 1 * Time.deltaTime;
-            
-            //if(noiseTimer <= 0) {
-            //    MakeNoise();
-            //    noiseTimer = noiseFrequency;
-            //}
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            isMoving = true;
-            //gameManager.isGavinMoving = true;
             transform.position += new Vector3(-gavinSpeed,0,0) * Time.deltaTime;
-            //lastPosition = transform.position;
-
-            //noiseTimer -= 1 * Time.deltaTime;
-            
-            //if(noiseTimer <= 0) {
-            //    MakeNoise();
-            //    noiseTimer = noiseFrequency;
-            //}
         }
         
     }

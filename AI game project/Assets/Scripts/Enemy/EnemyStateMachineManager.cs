@@ -36,14 +36,4 @@ public class EnemyStateMachineManager : MonoBehaviour
     private void SwitchToNextState(State nextState) {
         currentState = nextState;
     }
-
-    //public void NewNoise(float loudness, Vector3 gavinPosition) {
-    //    Debug.Log("Something");
-    //    noiseTimer = 1;
-    //    if (Vector3.Distance(gavinPosition, transform.position) < loudness) {
-    //        lastSoundPosition = gavinPosition;
-    //        isThereNoise = true;
-    //    }
-
-    //}
 }
