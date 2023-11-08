@@ -559,7 +559,6 @@ GameObject:
   - component: {fileID: 575214786}
   - component: {fileID: 575214785}
   - component: {fileID: 575214787}
-  - component: {fileID: 575214788}
   - component: {fileID: 575214789}
   m_Layer: 0
   m_Name: Gavin
@@ -761,33 +760,6 @@ MonoBehaviour:
   enemiesDetected: 0
   enemiesInArc: []
   enemiesInSight: []
---- !u!114 &575214788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 575214777}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372cf82b98723a8d4a6721be5cc6b7f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fov: 95
-  radius: 6
-  squares: []
-  surroundingSquares: []
-  seenSquares: []
-  currentSeenSquares: []
-  walkedSquares: []
-  obstacleSquares: []
-  exploringSquares: []
-  inArchSquaresDistances: []
-  agentSpeed: 3
-  agent: {fileID: 575214789}
-  timer: 0.5
-  canSeeTheExit: 0
-  exitPosition: {fileID: 797914021}
 --- !u!195 &575214789
 NavMeshAgent:
   m_ObjectHideFlags: 0
