@@ -663,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 575214777}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1457326, y: 0.35, z: -3.8697505}
+  m_LocalPosition: {x: -2.81, y: 0.35, z: -4.1}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1677,7 +1677,7 @@ Transform:
   m_GameObject: {fileID: 1172367834}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.7342129, y: 0.35, z: -3.3708587}
+  m_LocalPosition: {x: 2.7342129, y: 0.35, z: -3.09}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1723,7 +1723,6 @@ MonoBehaviour:
   alertStage: 0
   alertLevel: 0
   chase: 0
-  player: {fileID: 575214780}
   manager: {fileID: 1833606493}
   gavin: {fileID: 575214777}
   noiseHeard: 0

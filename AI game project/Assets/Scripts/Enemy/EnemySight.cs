@@ -71,7 +71,7 @@ public class EnemySight : MonoBehaviour
         {
             playerInSight = CheckWithRayCasting(player);
         }
-        Debug.Log("playerInSight = " + playerInSight);
+
         // check if the player was heard
         noiseHeard = HearingControl();
 
