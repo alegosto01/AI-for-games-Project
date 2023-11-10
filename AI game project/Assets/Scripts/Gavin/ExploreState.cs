@@ -31,6 +31,7 @@ public class ExploreState : State
 
     public bool canSeeTheExit = false;
     public Transform exitPosition;
+    public Vector3 exitSquare;
     public bool turning = false;
 
     public override State RunCurrentState()
@@ -53,6 +54,9 @@ public class ExploreState : State
                 squares.Add(new Vector3(i+0.5f,0, j+0.5f));
             }
         }
+
+        // find exit square
+        exitSquare = FindCentreOfSquare(exitPosition.position);
         AnalizePath();
     }
 
@@ -98,7 +102,6 @@ public class ExploreState : State
             {
                 //find the square where the hit point is
                 Vector3 relatedSquare = FindCentreOfSquare(hit.point);
-                //Debug.Log("related square = " + relatedSquare + " for this point = " + hit.point);
 
                 // add that square to obstacle square and remove it from seenSquares
                 toRemove.Add(relatedSquare);
@@ -118,18 +121,16 @@ public class ExploreState : State
             {
                 //find the square where the hit point is
                 Vector3 relatedSquare = FindCentreOfSquare(hit.point);
-                //Debug.Log("related square = " + relatedSquare + " for this point = " + hit.point);
 
                 // add that square to oblstacle square and remove it from seenSquares
                 toRemove.Add(relatedSquare);
                 if(!obstacleSquares.Contains(relatedSquare) && relatedSquare.y > -1) {
                     obstacleSquares.Add(relatedSquare);
                 }
-
-                if(hit.collider.CompareTag("Exit"))
-                {
-                    canSeeTheExit = true;
-                }
+                // if(hit.collider.CompareTag("Exit"))
+                // {
+                //     canSeeTheExit = true;
+                // }
             }
         }
 
@@ -155,6 +156,10 @@ public class ExploreState : State
         surroundingSquares.Add(square6);
         surroundingSquares.Add(square7);
         surroundingSquares.Add(square8);
+
+        if (currentSeenSquares.Contains(exitSquare)) {
+            canSeeTheExit = true;
+        }
 
        
         foreach (Vector3 square in currentSeenSquares)
@@ -195,9 +200,7 @@ public class ExploreState : State
                 foundSquare = square;
             }
         }
-        // if(foundSquare.y == 0 && foundSquare.x == 0 && foundSquare.z == 0) {
-        //     Debug.Log(hitPos);
-        // }
+
         return foundSquare;
     }
     public void PointInCircle(Vector3 posPunto, Vector3 gavinPos, float raggio, float fov) {
@@ -212,7 +215,6 @@ public class ExploreState : State
             if(angle < fov/2) {
                 currentSeenSquares.Add(posPunto);
                 inArchSquaresDistances.Add(distance);
-                //currentSquaresDistances.Add(distance);
             }
         }
     }
@@ -239,7 +241,6 @@ public class ExploreState : State
                 }
                 // int randomIndex = UnityEngine.Random.Range(0, currentSeenSquares.Count);
                 if(index != -1){
-
                     agent.destination = currentSeenSquares[index];
                 }       
             }

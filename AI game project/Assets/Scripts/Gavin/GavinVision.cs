@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,46 @@ public class GavinVision : MonoBehaviour
     public bool enemiesDetected = false;
     public List<GameObject> enemiesInArc = new List<GameObject>();
     public List<GameObject> enemiesInSight = new List<GameObject>();
+    public float timer = 0;
+    public float gapTime = 0.5f;
 
     private void Update()
     {
+        timer += Time.deltaTime;
+        if(timer > gapTime) {
+            CheckVision();
+            timer = 0;
+        }
+    }
+    // a function that returns true or false depending on if the enemy is in sight, when he already is in the arc area
+    private bool CheckWithRayCasting(GameObject c)
+    {
+        Vector3 direction = c.transform.position - transform.position;
+        Physics.Raycast(transform.position, direction, out RaycastHit hit, maxRayDistance);
+        if (hit.rigidbody)
+        {
+            if (hit.rigidbody.tag == "Enemy")
+            {
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    // code to draw the arc on the scene in unity
+    private void OnDrawGizmos()
+    {
+        source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
+        Color c = Color.green;
+        Handles.color = c;
+        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+    }
+
+    public void CheckVision() {
         enemiesInArc.Clear();
         // create a list with all the colliders that are present in a round area around the player with radius fov
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
@@ -56,33 +94,7 @@ public class GavinVision : MonoBehaviour
         else
         {
             enemiesInSight.Clear();
+            enemiesDetected = false;
         }
-    }
-    // a function that returns true or false depending on if the enemy is in sight, when he already is in the arc area
-    private bool CheckWithRayCasting(GameObject c)
-    {
-        Vector3 direction = c.transform.position - transform.position;
-        Physics.Raycast(transform.position, direction, out RaycastHit hit, maxRayDistance);
-        if (hit.rigidbody)
-        {
-            if (hit.rigidbody.tag == "Enemy")
-            {
-                return true;
-            }
-            return false;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // code to draw the arc on the scene in unity
-    private void OnDrawGizmos()
-    {
-        source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-        Color c = Color.green;
-        Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
     }
 }

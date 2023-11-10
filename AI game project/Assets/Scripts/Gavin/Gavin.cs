@@ -16,7 +16,7 @@ public class Gavin : MonoBehaviour
 
     //speed variables
     public float stealthSpeed = 2;
-    public float runningSpeed = 4;
+    public float runningSpeed = 3;
     public float gavinSpeed;
 
     //noise generation variables

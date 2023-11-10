@@ -26,6 +26,11 @@ public class DecisionMaking : MonoBehaviour
             if (totalEnemiesHealth < 200)
             {
                 attack = true;
+                Debug.Log("attack");
+            }
+            else
+            {
+                Debug.Log("run away");
             }
         }
     }

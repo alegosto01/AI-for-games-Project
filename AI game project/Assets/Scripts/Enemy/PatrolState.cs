@@ -11,9 +11,17 @@ public class PatrolState : State
     public float agentSpeed = 3;
     EnemySight enemySight; // the EnemySight component of the enemy
 
+    public bool random = false;
+    public List<Vector3> squares = new List<Vector3>();
+
 
     private void Start()
     {
+        for(int i = -5; i < 5; i++) {
+            for(int j = -5; j < 5; j++) {
+                squares.Add(new Vector3(i+0.5f,0, j+0.5f));
+            }
+        }
         enemySight = GetComponentInParent<EnemySight>();
     }
 
@@ -35,13 +43,19 @@ public class PatrolState : State
 
     void GotoNextPoint() 
     {
-        if (points.Length == 0)
-            return;
+        if(random) {
+            int randomIndex = UnityEngine.Random.Range(0, squares.Count);
+            agent.destination = squares[randomIndex];
+        }
+        else {
+            if (points.Length == 0)
+                return;
 
-        agent.speed = agentSpeed;
+            agent.speed = agentSpeed;
 
-        // set the new destination point and update the destPoint index
-        agent.destination = points[destPoint].position;
-        destPoint = (destPoint + 1) % points.Length;
+            // set the new destination point and update the destPoint index
+            agent.destination = points[destPoint].position;
+            destPoint = (destPoint + 1) % points.Length;
+        }
     }
 }
