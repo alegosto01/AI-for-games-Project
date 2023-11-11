@@ -1,3 +1,5 @@
+using System.Net.Cache;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,28 +26,33 @@ public class Gavin : MonoBehaviour
     public float noiseRadiusStealth = 2f;
     public float noiseRadiusRunning = 4f;
     public float noiseFov;
-    [Range(0, 360)] public float noiseFovAngle;
+    // [Range(0, 360)] public float noiseFovAngle;
     private Vector3 noiseSource;
+    public UnityEngine.AI.NavMeshAgent agent;
+
 
     //vision variables
 
-    public float visionFov;
-    [Range(0, 360)] public float visionFovAngle;
-    private Vector3 visionSourceRightForward;
-    private Vector3 visionSourceLeftForward;
-    private Vector3 visionSourceForward;
-    private Vector3 visionSourceRight;
-    private Vector3 visionSourceLeft;
+    // public float visionFov;
+    // [Range(0, 360)] public float visionFovAngle;
+    // private Vector3 visionSourceRightForward;
+    // private Vector3 visionSourceLeftForward;
+    // private Vector3 visionSourceForward;
+    // private Vector3 visionSourceRight;
+    // private Vector3 visionSourceLeft;
 
-    public List<Vector3> previousPositions = new List<Vector3>();
+    // public List<Vector3> previousPositions = new List<Vector3>();
     public EnemyStateMachineManager manager;
-    public Vector3 startPosition;
+    // public Vector3 startPosition;
+
+    void Awake() {
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+    }
 
     void Start()
     {
-        gavinSpeed = runningSpeed;
+        agent.speed = runningSpeed;
         noiseFov = noiseRadiusRunning;
-        previousPositions.Add(startPosition);  
     }
 
     void Update()
@@ -92,31 +99,45 @@ public class Gavin : MonoBehaviour
         
     }
 
+    public void SwitchToStealh() {
+        stealth = true;
+        agent.speed = stealthSpeed;
+        noiseFov = noiseRadiusStealth;
+        Debug.Log("Switch to Stealth");
+
+    }
+    public void SwitchToRun() {
+        stealth = false;
+        agent.speed = runningSpeed;
+        noiseFov = noiseRadiusRunning;
+        Debug.Log("Switch to Run");
+    }
+
    
 
-    private void OnDrawGizmos()
-    {
-        visionSourceRightForward = Quaternion.Euler(0, 25.0f, 0) * transform.forward;
-        visionSourceLeftForward = Quaternion.Euler(0, -35.0f, 0) * transform.forward;
-        visionSourceLeft = Quaternion.Euler(0, -70.0f, 0) * transform.forward;
-        visionSourceForward = Quaternion.Euler(0, -5, 0) * transform.forward;
-        visionSourceRight = Quaternion.Euler(0, 60f, 0) * transform.forward;
-        // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
-        // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
-        // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
-        Color c = Color.red;
+    // private void OnDrawGizmos()
+    // {
+    //     visionSourceRightForward = Quaternion.Euler(0, 25.0f, 0) * transform.forward;
+    //     visionSourceLeftForward = Quaternion.Euler(0, -35.0f, 0) * transform.forward;
+    //     visionSourceLeft = Quaternion.Euler(0, -70.0f, 0) * transform.forward;
+    //     visionSourceForward = Quaternion.Euler(0, -5, 0) * transform.forward;
+    //     visionSourceRight = Quaternion.Euler(0, 60f, 0) * transform.forward;
+    //     // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
+    //     // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
+    //     // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
+    //     Color c = Color.red;
        
-        Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, visionSourceRightForward, visionFovAngle, visionFov);
-        Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeftForward, visionFovAngle, visionFov);
-        Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeft, visionFovAngle, visionFov);
-        Handles.DrawSolidArc(transform.position,transform.up, visionSourceForward, visionFovAngle, visionFov);
-        Handles.DrawSolidArc(transform.position,transform.up, visionSourceRight, visionFovAngle, visionFov);
+    //     Handles.color = c;
+    //     Handles.DrawSolidArc(transform.position, transform.up, visionSourceRightForward, visionFovAngle, visionFov);
+    //     Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeftForward, visionFovAngle, visionFov);
+    //     Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeft, visionFovAngle, visionFov);
+    //     Handles.DrawSolidArc(transform.position,transform.up, visionSourceForward, visionFovAngle, visionFov);
+    //     Handles.DrawSolidArc(transform.position,transform.up, visionSourceRight, visionFovAngle, visionFov);
 
-        noiseSource = Quaternion.AngleAxis(-noiseFovAngle / 2, transform.up) * transform.forward;
-        Color soundColor = Color.blue;
+    //     noiseSource = Quaternion.AngleAxis(-noiseFovAngle / 2, transform.up) * transform.forward;
+    //     Color soundColor = Color.blue;
       
-        Handles.color = soundColor;
-        Handles.DrawSolidArc(transform.position, transform.up, noiseSource, noiseFovAngle, noiseFov);
-    }
+    //     Handles.color = soundColor;
+    //     Handles.DrawSolidArc(transform.position, transform.up, noiseSource, noiseFovAngle, noiseFov);
+    // }
 }

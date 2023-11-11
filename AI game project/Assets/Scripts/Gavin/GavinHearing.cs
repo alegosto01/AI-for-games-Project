@@ -1,31 +1,36 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class GavinVision : MonoBehaviour
+public class GavinHearing : MonoBehaviour
 {
     public float fov;  // The radius of the arc 
     [Range(0, 360)] public float fovAngle; // the angle of the arc
     private Vector3 source; // a variable used only for drawing the arc. Not important
     private float maxRayDistance = 12;
-    public bool enemiesDetected = false;
+    public bool enemiesHeard = false;
+    public bool enemiesAroundMe = false;
     public List<GameObject> enemiesInArc = new List<GameObject>();
-    public List<GameObject> enemiesInSight = new List<GameObject>();
+    public List<GameObject> enemiesNextToMe = new List<GameObject>();
     public float timer = 0;
     public float gapTime = 0.5f;
+    public Gavin gavinScript;
 
-    private void Update()
-    {
+    public void Awake() {
+        gavinScript = GetComponentInParent<Gavin>();
+    }
+
+    private void Update() {
         timer += Time.deltaTime;
         if(timer > gapTime) {
-            CheckVision();
+            CheckNoise();
             timer = 0;
         }
     }
     // a function that returns true or false depending on if the enemy is in sight, when he already is in the arc area
-    private bool CheckWithRayCasting(GameObject c)
-    {
+    private bool CheckWithRayCasting(GameObject c) {
         Vector3 direction = c.transform.position - transform.position;
         Physics.Raycast(transform.position, direction, out RaycastHit hit, maxRayDistance);
         if (hit.rigidbody)
@@ -43,57 +48,60 @@ public class GavinVision : MonoBehaviour
     }
 
     // code to draw the arc on the scene in unity
-    private void OnDrawGizmos()
-    {
+    private void OnDrawGizmos() {
         source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-        Color c = Color.green;
+        Color c = Color.blue;
         Handles.color = c;
         Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
     }
 
-    public void CheckVision() {
+    public void CheckNoise() {
         enemiesInArc.Clear();
-        // create a list with all the colliders that are present in a round area around the player with radius fov
+
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
-        // iterate through all of them and see which one of them are enemies
         foreach (Collider c in targetsInFov)
         {
             if (c.CompareTag("Enemy"))
             {
-                float signedAngle = Vector3.Angle(transform.forward, c.transform.position - transform.position);
-                // check if the enemy is also in the arc area
-                if (Mathf.Abs(signedAngle) < fovAngle / 2)
-                {
-                    //enemiesInFov = true;    
-                    enemiesInArc.Add(c.gameObject);
-                    
+                enemiesInArc.Add(c.gameObject);
+                enemiesHeard = true;
+                if(!gavinScript.stealth) {
+
+                    gavinScript.SwitchToStealh();
                 }
             }
         }
 
-        // if the enemy is in the arc area check is he is also in sight. If so playerInSight will be set to true
-        //Debug.Log(enemiesInArc.Count);
+
         if (enemiesInArc.Count > 0)
         {
-            bool enemyInSight;
+            bool enemyNearMe;
             foreach (GameObject enemy in enemiesInArc)
             {
-                enemyInSight = CheckWithRayCasting(enemy);
-                if (enemyInSight)
+                enemyNearMe = CheckWithRayCasting(enemy);
+                if (enemyNearMe)
                 {
-                    enemiesDetected = true;
-                    if (!enemiesInSight.Contains(enemy))
+                    enemiesAroundMe = true;
+
+                    if (!enemiesNextToMe.Contains(enemy))
                     {
-                        enemiesInSight.Add(enemy);
+                        enemiesNextToMe.Add(enemy);
                     }
                 }
-
+            }
+            if(enemiesNextToMe.Count == 0) {
+                enemiesAroundMe = false;
             }
         }
         else
         {
-            enemiesInSight.Clear();
-            enemiesDetected = false;
+            if(gavinScript.stealth) {
+
+                gavinScript.SwitchToRun();
+            }
+
+            enemiesNextToMe.Clear();
+            enemiesHeard = false;
         }
     }
 }
