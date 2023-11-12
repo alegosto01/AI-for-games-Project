@@ -5,7 +5,7 @@ using UnityEngine;
 public class GavinStateMachineManager : MonoBehaviour
 {
     public State currentState;
-
+    
     private void Update()
     {
         RunStateMachine();

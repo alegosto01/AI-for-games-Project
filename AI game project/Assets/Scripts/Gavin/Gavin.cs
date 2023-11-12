@@ -26,24 +26,10 @@ public class Gavin : MonoBehaviour
     public float noiseRadiusStealth = 2f;
     public float noiseRadiusRunning = 4f;
     public float noiseFov;
-    // [Range(0, 360)] public float noiseFovAngle;
     private Vector3 noiseSource;
     public UnityEngine.AI.NavMeshAgent agent;
 
-
-    //vision variables
-
-    // public float visionFov;
-    // [Range(0, 360)] public float visionFovAngle;
-    // private Vector3 visionSourceRightForward;
-    // private Vector3 visionSourceLeftForward;
-    // private Vector3 visionSourceForward;
-    // private Vector3 visionSourceRight;
-    // private Vector3 visionSourceLeft;
-
-    // public List<Vector3> previousPositions = new List<Vector3>();
     public EnemyStateMachineManager manager;
-    // public Vector3 startPosition;
 
     void Awake() {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -99,7 +85,8 @@ public class Gavin : MonoBehaviour
         
     }
 
-    public void SwitchToStealh() {
+    
+    public void SwitchToStealth() {
         stealth = true;
         agent.speed = stealthSpeed;
         noiseFov = noiseRadiusStealth;

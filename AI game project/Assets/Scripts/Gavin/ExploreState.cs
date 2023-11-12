@@ -1,13 +1,14 @@
 
-using System;
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
+
 // This will need to be completelly changed
 public class ExploreState : State
 {
+    public Gavin gavinScript;
     public GameObject gavin;
     public GameObject enemy;
     public GavinAttackState attackState;
@@ -40,37 +41,58 @@ public class ExploreState : State
     public bool turning = false;
     public int turningSide = 1;
     public Vector3 destination = new Vector3();
+    public float destination_distance = 10;
+    // public bool wallAvoidance;
+    // public int countWallCollision = 0;
 
     private DecisionMaking decisionMaking;
+
+    public GameObject walked_prefab;
+    public GameObject destination_prefab;
 
 
     public override State RunCurrentState()
     {
+      
         timer -= Time.deltaTime;
-        if (timer < 0 || (Vector3.Distance(transform.position, destination) < 0.4f && !turning) ) {
+        // i call the explore algorithm with the timer or if he is almost arrived to the destination but is not turning
+        // !turning avoid a bug where gavin will be stuck in a point
+        //if (timer < 0 || (Vector3.Distance(transform.position, agent.destination) < destination_distance/2 && !turning) ) {
+        if( (Vector3.Distance(transform.position, destination) < destination_distance/2 && !turning) || (timer < 0 && turning)) {
             if(!canSeeTheExit) {
                 AnalizePath();
             }
             GotoNextPoint();
-            timer = 1f;
+            timer = 0.5f;
         }
 
+
+        // when gavins need to rotate to find a way rotates depending on turning side
         if(turning) {
             gavin.transform.Rotate(0, 90* Time.deltaTime * turningSide, 0, Space.Self) ;
         }
         float distance = Vector3.Distance(gavin.transform.position, enemy.transform.position);
+        
         if (distance <= maxDistance)
         {
             return attackState;
         }
         return this;
+
+        
+    }
+
+    void Awake() {
+        decisionMaking = GetComponentInParent<DecisionMaking>();
+        gavinScript = GetComponentInParent<Gavin>();
+
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //add all the squares of the map
+        //add all the squares of the map and the border to the obstacle squares
         for(int i = -5; i < 5; i++) {
             for(int j = -5; j < 5; j++) {
                 Vector3 newSquare = new Vector3(i+0.5f,0, j+0.5f);
@@ -84,43 +106,38 @@ public class ExploreState : State
 
         // find exit square
         exitSquare = FindCentreOfSquare(exitPosition.position);
+
+        //start finding a path
         AnalizePath();
         GotoNextPoint();
 
-        decisionMaking = GetComponentInParent<DecisionMaking>();
 
-    }
 
-     // Update is called once per frame
-    void Update()
-    {
-        // if (currentSeenSquares.Contains(exitSquare)) {
-        //     Debug.Log("found exit");
-        // }
-       
     }
 
     void AnalizePath() {
-        // store in seenSquares all the squares in the arch
+
         inArchSquaresDistances.Clear();
         currentSeenSquares.Clear();
+
+        // store in seenSquares all the squares in the arch
         foreach (Vector3 point in squares) {
             PointInCircle(point, this.transform.position, radius, fov);
         }
 
-        //raycast to spot the walls
+        //raycast to all the squares in the arch
         Vector3 direction = transform.forward;
         foreach (Vector3 square in currentSeenSquares)
         {
             Vector3 directionToSquare = square - transform.position;
-            //float distance = Vector3.Distance(square, transform.position);
             
             float angle = Vector3.Angle(directionToSquare, transform.forward);
             Vector3 rayDirection = Quaternion.Euler(0, angle, 0) * direction;
-            //RaycastHit hit;
+
+            //calculate the index to find then the corresponding distance in inArchSquaresDistances to use it as maxRayDistance
             int index = currentSeenSquares.IndexOf(square);
-            //print(index);
             
+            // if i hit something it means that the square is hidden from gavin
             if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, inArchSquaresDistances[index]))
             {
                 //find the square where the hit point is
@@ -135,9 +152,12 @@ public class ExploreState : State
             }
         }
 
+        //initialize the distances sum
         leftDistancesSum = 0;
         rightDistancesSum = 0;
-        //raycast to spot the walls
+
+        //raycast in the whole arch 
+        //countWallCollision = 0;
         for (float a = -fov / 2; a <= fov / 2; a += 1.0f)
         {
             Vector3 rayDirection = Quaternion.Euler(0, a, 0) * direction;
@@ -145,8 +165,12 @@ public class ExploreState : State
             
             if (Physics.Raycast(transform.position, rayDirection, out hit, radius))
             {
+                //countWallCollision += 1;
                 //find the square where the hit point is
                 Vector3 relatedSquare = FindCentreOfSquare(hit.point);
+
+                // i calculate the distance to the wall and i add to left or right sum of distances
+                // to be able to understand if gavin needs to turn right or left
                 float distance = Vector3.Distance(relatedSquare, transform.position);
                 if(a > 0) {
                     rightDistancesSum += distance;
@@ -154,25 +178,34 @@ public class ExploreState : State
                 else {
                     leftDistancesSum += distance;
                 }
+
                 // add that square to oblstacle square and remove it from seenSquares
                 toRemove.Add(relatedSquare);
                 if(!obstacleSquares.Contains(relatedSquare) && relatedSquare.y > -1) {
                     obstacleSquares.Add(relatedSquare);
                 }
-                // if(hit.collider.CompareTag("Exit"))
-                // {
-                //     canSeeTheExit = true;
-                // }
             }
         }
 
-        if(rightDistancesSum >= leftDistancesSum) {
-            turningSide = 1;
-        }
-        else {
-            turningSide = -1;
+        // if(countWallCollision > 100) {
+        //     Debug.Log("wall avoidance");
+        //     wallAvoidance = true;
+        // }
+        // else {
+        //     wallAvoidance = false;
+        // }
+
+        // calculate to which side gavin has tu turn
+        if(!turning) {
+            if(rightDistancesSum >= leftDistancesSum) {
+                turningSide = 1;
+            }
+            else {
+                turningSide = -1;
+            }
         }
 
+        // calculate all the squares around me 
         Vector3 currentSquare = FindCentreOfSquare(transform.position);
 
         Vector3 square1 = currentSquare + new Vector3(1,0,0);
@@ -198,13 +231,15 @@ public class ExploreState : State
 
         
 
-       
+        // add squares seen for the first time to seenSquares
         foreach (Vector3 square in currentSeenSquares)
         {
             if(!seenSquares.Contains(square)) {
                 seenSquares.Add(square);
             }
         }
+
+        // remove squares no reachable
         foreach(Vector3 square in toRemove){
             if(currentSeenSquares.Count > 0) {
                 int index = currentSeenSquares.IndexOf(square);
@@ -216,15 +251,12 @@ public class ExploreState : State
             seenSquares.Remove(square);
         }
 
+        // mark the surrounding squares as walked
         foreach(Vector3 square in surroundingSquares){
             if(!walkedSquares.Contains(square)) {
                 walkedSquares.Add(square);
+                Instantiate(walked_prefab, square + new Vector3(0,0.1f,0), Quaternion.identity);
             }
-            // else {
-            //     Debug.Log("already in");
-            // }
-            //currentSeenSquares.Remove(square);
-            // seenSquares.Remove(square);
         }
         
         // if (currentSeenSquares.Contains(exitSquare)) {
@@ -234,6 +266,7 @@ public class ExploreState : State
         toRemove.Clear();
     }
 
+    // return the corresponsing square to a point
     public Vector3 FindCentreOfSquare(Vector3 hitPos) {
         Vector3 foundSquare = new Vector3(0,0,0);
         foreach (Vector3 square in squares) {
@@ -245,6 +278,8 @@ public class ExploreState : State
         }
         return foundSquare;
     }
+
+    // detect if a point is in the arch of vision
     public void PointInCircle(Vector3 posPunto, Vector3 gavinPos, float raggio, float fov) {
         
         float distance = Vector3.Distance(posPunto, gavinPos);
@@ -261,8 +296,10 @@ public class ExploreState : State
         }
     }
 
+    // manage to move gavin to the next destination
     void GotoNextPoint() 
     {
+        Vector3 chosenSquare = new Vector3();
         //agent.speed = agentSpeed;
         if(canSeeTheExit) {
             agent.destination = exitPosition.position;
@@ -275,10 +312,9 @@ public class ExploreState : State
                 turning = false;
                 agent.updateRotation = true;
 
-                float maxDistance = 0;
                 float distanceFromWalkedSquares = 0;
                 int index = 0;
-                Vector3 chosenSquare = new Vector3();
+                // Vector3 chosenSquare = new Vector3();
                 foreach (Vector3 square in currentSeenSquares)
                 {
                     float sumDistances = 0;
@@ -291,67 +327,77 @@ public class ExploreState : State
                         chosenSquare = square;
                     }
                 }
-                foreach (float distance in inArchSquaresDistances)
-                {
-                    if(distance > maxDistance) {
-                        maxDistance = distance;
-                        // int tryIndex = inArchSquaresDistances.IndexOf(distance);
-                        // if(tryIndex >= 0 && !walkedSquares.Contains(currentSeenSquares[tryIndex])) {
-                            
-                        //     index = tryIndex;
-                        // }
-                    }
-                }
+                
+                // max distance to the wall 
+                float maxDistance = inArchSquaresDistances.Max();
 
-                if(index == -1) {
-                    int randomIndex = UnityEngine.Random.Range(0, seenSquares.Count);
-                    agent.destination = seenSquares[randomIndex];
-                    destination = agent.destination;
-                    agent.speed = 2;
-                    Debug.Log("go random" + agent.destination);
+                // foreach (float distance in inArchSquaresDistances)
+                // {
+                //     if(distance > maxDistance) {
+                //         maxDistance = distance;
+                //         // int tryIndex = inArchSquaresDistances.IndexOf(distance);
+                //         // if(tryIndex >= 0 && !walkedSquares.Contains(currentSeenSquares[tryIndex])) {
+                            
+                //         //     index = tryIndex;
+                //         // }
+                //     }
+                // }
+
+                // if(index == -1) {
+                //     int randomIndex = UnityEngine.Random.Range(0, seenSquares.Count);
+                //     agent.destination = seenSquares[randomIndex];
+                //     destination = agent.destination;
+                //     agent.speed = 2;
+                //     Debug.Log("go random" + agent.destination);
+                // }
+                // else {
+
+                // }
+
+                // change speed depending on how near to the wall gavin is, if he is not in stealth mode
+                if(!gavinScript.stealth) {
+                    agent.speed = maxDistance / 2;
+                }
+                
+                // if we are to close to the wall rotate to find better way
+                if(maxDistance < 1.5f) {
+                    turning = true;
+                    agent.updateRotation = false;
                 }
                 else {
-                    agent.speed = maxDistance / 2;
-                    if(maxDistance < 1.5f) {
-                        turning = true;
-                        agent.updateRotation = false;
-                    }
-                    else {
-                        turning = false;
-                        agent.updateRotation = true;
+                    turning = false;
+                    agent.updateRotation = true;
 
-                        if(index != -1){
-                            agent.destination = chosenSquare;
-                            destination = agent.destination;
-                        }  
-                    }
+                    if(index != -1){
+                        agent.destination = chosenSquare;
+                        Instantiate(destination_prefab, chosenSquare + new Vector3(0,0.11f,0), Quaternion.identity);
+                        destination = agent.destination;
+                    }  
                 }
-
-                
-
-                // int randomIndex = UnityEngine.Random.Range(0, currentSeenSquares.Count);
             }
             else if(seenSquares.Count > 0) {
                 turning = true;
             }
-            // else {
-            //     int randomIndex = UnityEngine.Random.Range(0, walkedSquares.Count);       
-            //     agent.destination = walkedSquares[randomIndex];
-            //     Debug.Log("I ll go to a walked square");
-            // }
         }
 
-        //Debug.Log("Destination = " + agent.destination);
-        //seenSquares.Clear();
+        // int indexx = currentSeenSquares.IndexOf(chosenSquare);
+        // print(inArchSquaresDistances[indexx]);
+
+        // destination_distance = Vector3.Distance(transform.position, destination);
+        // print(destination_distance);
+        // Vector3 directionToSquare = chosenSquare - transform.position;
+            
+        // float angle = Vector3.Angle(directionToSquare, transform.forward);
+        // Vector3 rayDirection = Quaternion.Euler(0, angle, 0) * direction;
+
+        // //calculate the index to find then the corresponding distance in inArchSquaresDistances to use it as maxRayDistance
+        // int index = currentSeenSquares.IndexOf(square);
+        
+        // // if i hit something it means that the square is hidden from gavin
+        // if (Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, inArchSquaresDistances[index]))
+        // {
+        //     //find the square where the hit point is
+        //     Debug.Log("ostacolo");
+        // }
     }
-
-    public void SpeedControl() {
-        if(inArchSquaresDistances.Count > 0) {
-                    maxDistance = inArchSquaresDistances.Max();
-                    
-                    
-        }
-    }
-
-
 }

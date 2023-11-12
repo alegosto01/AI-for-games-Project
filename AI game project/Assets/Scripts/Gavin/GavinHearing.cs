@@ -10,10 +10,10 @@ public class GavinHearing : MonoBehaviour
     [Range(0, 360)] public float fovAngle; // the angle of the arc
     private Vector3 source; // a variable used only for drawing the arc. Not important
     private float maxRayDistance = 12;
-    public bool enemiesHeard = false;
-    public bool enemiesAroundMe = false;
-    public List<GameObject> enemiesInArc = new List<GameObject>();
-    public List<GameObject> enemiesNextToMe = new List<GameObject>();
+    public bool enemiesHeard = false; // if enemies are in the circle but behind a wall
+    public bool enemiesAroundMe = false; // if enemies are in the circle and there is no obstacle between gavin and them
+    public List<GameObject> enemiesInArc = new List<GameObject>(); // enemies in the circle of hearing
+    public List<GameObject> enemiesNextToMe = new List<GameObject>(); // enemies in the circle of hearing without any obstacle in between
     public float timer = 0;
     public float gapTime = 0.5f;
     public Gavin gavinScript;
@@ -29,7 +29,7 @@ public class GavinHearing : MonoBehaviour
             timer = 0;
         }
     }
-    // a function that returns true or false depending on if the enemy is in sight, when he already is in the arc area
+    // a function that returns true or false depending on if the enemy is covered by a wall or not, when he already is in the arc area
     private bool CheckWithRayCasting(GameObject c) {
         Vector3 direction = c.transform.position - transform.position;
         Physics.Raycast(transform.position, direction, out RaycastHit hit, maxRayDistance);
@@ -55,9 +55,11 @@ public class GavinHearing : MonoBehaviour
         Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
     }
 
+
     public void CheckNoise() {
         enemiesInArc.Clear();
 
+        // find all the enemies in the circle
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
         foreach (Collider c in targetsInFov)
         {
@@ -65,9 +67,10 @@ public class GavinHearing : MonoBehaviour
             {
                 enemiesInArc.Add(c.gameObject);
                 enemiesHeard = true;
+                // if gavin hear enemies will go to stealth mode
                 if(!gavinScript.stealth) {
 
-                    gavinScript.SwitchToStealh();
+                    gavinScript.SwitchToStealth();
                 }
             }
         }
@@ -95,6 +98,7 @@ public class GavinHearing : MonoBehaviour
         }
         else
         {
+            //if there are no more enemies in the circle gavin goes back to run mode
             if(gavinScript.stealth) {
 
                 gavinScript.SwitchToRun();
