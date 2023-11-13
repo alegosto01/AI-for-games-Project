@@ -577,7 +577,7 @@ MonoBehaviour:
   enemy: {fileID: 1172367834}
   attackState: {fileID: 1601418889}
   maxDistance: 1
-  fov: 95
+  fov: 135
   radius: 6
   squares: []
   surroundingSquares: []
@@ -591,13 +591,16 @@ MonoBehaviour:
   rightDistancesSum: 0
   agentSpeed: 3
   agent: {fileID: 575214789}
-  timer: 1
+  timer: 0.5
   canSeeTheExit: 0
   exitPosition: {fileID: 797914021}
   exitSquare: {x: 0, y: 0, z: 0}
   turning: 0
   turningSide: 1
   destination: {x: 0, y: 0, z: 0}
+  destination_distance: 10
+  walked_prefab: {fileID: 2314213476232929464, guid: 0afef4a17609989c1ba58f58cfefc30c, type: 3}
+  destination_prefab: {fileID: 4570132229722196266, guid: dab6d9a29f0844561a930e65bae55603, type: 3}
 --- !u!1 &575214777
 GameObject:
   m_ObjectHideFlags: 0
@@ -810,7 +813,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fov: 5.93
-  fovAngle: 95
+  fovAngle: 135
   enemiesDetected: 0
   enemiesInArc: []
   enemiesInSight: []
