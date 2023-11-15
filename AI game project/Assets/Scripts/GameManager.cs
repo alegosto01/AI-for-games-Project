@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gavinStats = gavin.gameObject.GetComponent<GavinStats>();
-        enemyStats = enemy.gameObject.GetComponent<EnemyStats>();
 
         gameOverText.gameObject.SetActive(false);
     }
@@ -100,9 +99,12 @@ public class GameManager : MonoBehaviour
         {
             gavin.gameObject.SetActive(false);
         }
-        if (enemyStats.health <= 0)
+        foreach (GameObject enemy in enemies)
         {
-            enemy.gameObject.SetActive(false);
+            if (enemy.GetComponent<EnemyStats>().health <= 0)
+            {
+                enemy.gameObject.SetActive(false);
+            }
         }
     }
 

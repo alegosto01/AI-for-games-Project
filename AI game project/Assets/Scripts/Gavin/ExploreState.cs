@@ -50,6 +50,12 @@ public class ExploreState : State
     public GameObject walked_prefab;
     public GameObject destination_prefab;
 
+    public bool underAttack = false;
+    public GavinStats gavinStats;
+    public EnemyStats enemyStats;
+    float attackTimer = 0;
+    float prevHealth;
+
 
     public override State RunCurrentState()
     {
@@ -72,8 +78,10 @@ public class ExploreState : State
             gavin.transform.Rotate(0, 90* Time.deltaTime * turningSide, 0, Space.Self) ;
         }
         float distance = Vector3.Distance(gavin.transform.position, enemy.transform.position);
+
+        underAttack = AttackControl();
         
-        if (distance <= maxDistance)
+        if (decisionMaking.attack || underAttack)
         {
             return attackState;
         }
@@ -85,7 +93,7 @@ public class ExploreState : State
     void Awake() {
         decisionMaking = GetComponentInParent<DecisionMaking>();
         gavinScript = GetComponentInParent<Gavin>();
-
+        
     }
 
 
@@ -112,7 +120,12 @@ public class ExploreState : State
         GotoNextPoint();
 
 
+        decisionMaking = GetComponentInParent<DecisionMaking>();
 
+        gavinStats = GetComponentInParent<GavinStats>();
+        enemyStats = enemy.GetComponent<EnemyStats>();
+
+        prevHealth = gavinStats.health;
     }
 
     void AnalizePath() {
@@ -399,5 +412,25 @@ public class ExploreState : State
         //     //find the square where the hit point is
         //     Debug.Log("ostacolo");
         // }
+    }
+
+    bool AttackControl()
+    {
+        if (gavinStats.health < prevHealth)
+        {
+            return true;
+        }
+        else
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer > 1 / enemyStats.attackSpeed)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

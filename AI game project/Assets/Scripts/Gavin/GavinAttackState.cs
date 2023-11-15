@@ -32,19 +32,20 @@ public class GavinAttackState : State
         gameManager = manager.GetComponent<GameManager>();
         stats = GetComponentInParent<GavinStats>();
 
-        decisionMaking = GetComponentInParent<DecisionMaking>();
+        decisionMaking = gavin.GetComponent<DecisionMaking>();
     }
 
     public override State RunCurrentState()
     {
         enemies = GetComponentInParent<GavinVision>().enemiesInSight;  // a list with all the enemies that gavin can currently see
+        Debug.Log("decisionMaking.attack = " + decisionMaking.attack);
         if (!decisionMaking.attack && !chaseEnemy)
         {
             return exploreState;
         }
 
         // choose a random enemy from the list to attack
-        if (!attackingEnemy)
+        if (!attackingEnemy && enemies.Count>0)
         {
             System.Random random = new System.Random();
             int randomIndex = random.Next(enemies.Count);
@@ -52,12 +53,25 @@ public class GavinAttackState : State
             enemyStats = enemy.GetComponent<EnemyStats>();
             attackingEnemy = true;
         }
+        else if (!attackingEnemy)
+        {
+            return exploreState;
+        }
+        
+
+        // if the enemy that I was attacking is dead set attackingEnemy back to false
+        if (!enemy.activeSelf && attackingEnemy)
+        {
+            attackingEnemy = false;
+            return this;
+        }
 
         float distance = Vector3.Distance(transform.position, enemy.transform.position);
 
         // if close enough to the target enemy start hitting him
         if (distance < maxDistance)
         {
+            transform.LookAt(enemy.transform);
             if (timer >= (1 / stats.attackSpeed) || timer == 0)
             {
                 enemyStats.health -= stats.attackDamage;
