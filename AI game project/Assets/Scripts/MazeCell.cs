@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class MazeCell : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _leftWall;
+    public GameObject _leftWall;
 
-    [SerializeField]
-    private GameObject _rightWall;
+    public GameObject _rightWall;
 
-    [SerializeField]
-    private GameObject _frontWall;
+    public GameObject _frontWall;
 
-    [SerializeField]
-    private GameObject _backWall;
+    public GameObject _backWall;
 
-    [SerializeField]
-    private GameObject _unvisitedBlock;
+    public GameObject _unvisitedBlock;
+
+    public bool passed = false;
+    public bool deadEnd = false;
 
     public bool IsVisited { get; private set; }
 

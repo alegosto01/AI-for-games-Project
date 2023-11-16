@@ -14,7 +14,7 @@ public class MazeGenerator : MonoBehaviour
     [SerializeField]
     private int _mazeDepth;
 
-    private MazeCell[,] _mazeGrid;
+    public MazeCell[,] _mazeGrid;
 
     void Start()
     {
