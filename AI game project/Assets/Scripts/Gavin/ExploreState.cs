@@ -26,6 +26,9 @@ public class ExploreState : State
     public List<Vector3> exploringSquares = new List<Vector3>();
     public HashSet<Vector3> toRemove = new HashSet<Vector3>();
 
+    public List<Vector3> squaresInCircle = new List<Vector3>();
+
+
     public List<float> inArchSquaresDistances = new List<float>();
 
     public float leftDistancesSum = 0;
@@ -34,7 +37,7 @@ public class ExploreState : State
     public float agentSpeed = 3;
     public UnityEngine.AI.NavMeshAgent agent;
     public float timer = 0.5f;
-
+    public bool lockRotation = false;
     public bool canSeeTheExit = false;
     public Transform exitPosition;
     public Vector3 exitSquare;
@@ -63,8 +66,8 @@ public class ExploreState : State
         timer -= Time.deltaTime;
         // i call the explore algorithm with the timer or if he is almost arrived to the destination but is not turning
         // !turning avoid a bug where gavin will be stuck in a point
-        //if (timer < 0 || (Vector3.Distance(transform.position, agent.destination) < destination_distance/2 && !turning) ) {
-        if( (Vector3.Distance(transform.position, destination) < destination_distance/2 && !turning) || (timer < 0 && turning)) {
+        //if (timer < 0) {
+        if((Vector3.Distance(transform.position, destination) < destination_distance/3 && !turning) || (timer < 0 && turning)) {
             if(!canSeeTheExit) {
                 AnalizePath();
             }
@@ -101,9 +104,9 @@ public class ExploreState : State
     void Start()
     {
         //add all the squares of the map and the border to the obstacle squares
-        for(int i = -5; i < 5; i++) {
-            for(int j = -5; j < 5; j++) {
-                Vector3 newSquare = new Vector3(i+0.5f,0, j+0.5f);
+        for(int i = -5; i < 5; i+=1) {
+            for(int j = -5; j < 5; j+= 1) {
+                Vector3 newSquare = new Vector3(i+1f,0, j+1);
                 squares.Add(newSquare);
                 if(i == 4 || j == 4) {
                     obstacleSquares.Add(newSquare);
@@ -209,14 +212,14 @@ public class ExploreState : State
         // }
 
         // calculate to which side gavin has tu turn
-        if(!turning) {
-            if(rightDistancesSum >= leftDistancesSum) {
-                turningSide = 1;
-            }
-            else {
-                turningSide = -1;
-            }
-        }
+        // if(!turning) {
+        //     if(rightDistancesSum >= leftDistancesSum) {
+        //         turningSide = 1;
+        //     }
+        //     else {
+        //         turningSide = -1;
+        //     }
+        // }
 
         // calculate all the squares around me 
         Vector3 currentSquare = FindCentreOfSquare(transform.position);
@@ -374,6 +377,10 @@ public class ExploreState : State
                 
                 // if we are to close to the wall rotate to find better way
                 if(maxDistance < 1.5f) {
+                    if(!lockRotation) {
+                        turningSide = CalculateSide();
+                    }
+                    lockRotation = true;
                     turning = true;
                     agent.updateRotation = false;
                 }
@@ -385,6 +392,7 @@ public class ExploreState : State
                         agent.destination = chosenSquare;
                         Instantiate(destination_prefab, chosenSquare + new Vector3(0,0.11f,0), Quaternion.identity);
                         destination = agent.destination;
+                        lockRotation = false;
                     }  
                 }
             }
@@ -412,6 +420,56 @@ public class ExploreState : State
         //     //find the square where the hit point is
         //     Debug.Log("ostacolo");
         // }
+    }
+
+    public int CalculateSide() {
+        squaresInCircle.Clear();
+        foreach (Vector3 square in squares) {
+            float distance = Vector3.Distance(transform.position, square);
+
+            if(distance < 6) {
+
+                Vector3 directionToSquare = square - transform.position;
+            
+                float angle = Vector3.Angle(directionToSquare, transform.forward);
+                Vector3 rayDirection = Quaternion.Euler(0, angle, 0) * transform.forward;
+                
+                if (!Physics.Raycast(transform.position, rayDirection, out RaycastHit hit, 3))
+                {
+                    if(!walkedSquares.Contains(square)) {
+                        squaresInCircle.Add(square);
+                    }
+                }
+            }
+        }
+        float maxSum = 0;
+        Vector3 goodSideSquare = new Vector3();
+
+        foreach (Vector3 square in squaresInCircle) {
+            float sumOfDistances = 0;
+            foreach(Vector3 walkedSquare in walkedSquares) {
+                sumOfDistances += Vector3.Distance(square, walkedSquare);
+            }
+            if(sumOfDistances > maxSum) {
+                maxSum = sumOfDistances;
+                goodSideSquare = square;
+            }
+        }
+
+        Debug.Log("Chosen square = " + goodSideSquare);
+
+        Vector3 direction = goodSideSquare - transform.position;
+        float signedAngle = Vector3.SignedAngle(direction,transform.forward, Vector3.up);
+
+        Debug.Log(signedAngle);
+
+        if(signedAngle < 0) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+
     }
 
     bool AttackControl()
