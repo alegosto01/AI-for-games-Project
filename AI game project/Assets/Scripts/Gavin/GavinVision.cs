@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 public class GavinVision : MonoBehaviour
 {
@@ -15,10 +16,19 @@ public class GavinVision : MonoBehaviour
     public float timer = 0;
     public float gapTime = 0.5f;
 
+    [SerializeField] GameObject manager;
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = manager.GetComponent<GameManager>();
+    }
+
     private void Update()
     {
         timer += Time.deltaTime;
-        if(timer > gapTime) {
+        if (timer > gapTime)
+        {
             CheckVision();
             timer = 0;
         }
@@ -51,7 +61,8 @@ public class GavinVision : MonoBehaviour
         Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
     }
 
-    public void CheckVision() {
+    public void CheckVision()
+    {
         enemiesInArc.Clear();
         // create a list with all the colliders that are present in a round area around the player with radius fov
         Collider[] targetsInFov = Physics.OverlapSphere(transform.position, fov);
@@ -66,7 +77,7 @@ public class GavinVision : MonoBehaviour
                 {
                     //enemiesInFov = true;    
                     enemiesInArc.Add(c.gameObject);
-                    
+
                 }
             }
         }
@@ -90,10 +101,56 @@ public class GavinVision : MonoBehaviour
 
             }
         }
-        else
+        else  // if the arc area is empty we still want the enemies previously detected to be considered in sight, unless if they are too far away or
+        // behind a wall
         {
-            enemiesInSight.Clear();
-            enemiesDetected = false;
+            List<GameObject> enemiesToDelete = new List<GameObject>() { };
+            foreach (GameObject enemy in enemiesInSight)
+            {
+                if (!CheckWithRayCasting(enemy))
+                {
+                    enemiesToDelete.Add(enemy);
+                }
+            }
+            foreach (GameObject enemy in enemiesToDelete)
+            {
+                enemiesInSight.Remove(enemy);
+            }
+            if (enemiesInSight.Count == 0)
+            {
+                enemiesDetected = false;
+            }
+        }
+
+        // if gavin is under attack we consider that he sees the enemy closest to him (which will be the one attacking him)
+        if (gameManager.gavinUnderAttack)
+        {
+            List<Tuple<float, GameObject>> distances = new List<Tuple<float, GameObject>>();
+            foreach (GameObject enemy in gameManager.enemies)
+            {
+                distances.Add(new Tuple<float, GameObject>(Vector3.Distance(enemy.transform.position, transform.position), enemy));
+            }
+
+            if (distances.Count > 0)
+            {
+                (float minDistance, GameObject nearestEnemy) = distances[0];
+
+                foreach ((float distance, GameObject enemy) in distances)
+                {
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestEnemy = enemy;
+                    }
+                }
+
+                if (!enemiesInSight.Contains(nearestEnemy))
+                {
+                    enemiesInSight.Add(nearestEnemy);
+                }
+            }
+
+
         }
     }
 }

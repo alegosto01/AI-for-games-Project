@@ -38,7 +38,6 @@ public class GavinAttackState : State
     public override State RunCurrentState()
     {
         enemies = GetComponentInParent<GavinVision>().enemiesInSight;  // a list with all the enemies that gavin can currently see
-        Debug.Log("decisionMaking.attack = " + decisionMaking.attack);
         if (!decisionMaking.attack && !chaseEnemy)
         {
             return exploreState;
@@ -57,9 +56,10 @@ public class GavinAttackState : State
         {
             return exploreState;
         }
-        
+
 
         // if the enemy that I was attacking is dead set attackingEnemy back to false
+        Debug.Log("enemy.activeSelf = " + enemy.activeSelf);
         if (!enemy.activeSelf && attackingEnemy)
         {
             attackingEnemy = false;

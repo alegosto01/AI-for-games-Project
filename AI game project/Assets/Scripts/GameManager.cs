@@ -30,13 +30,22 @@ public class GameManager : MonoBehaviour
     private float soundTimer = 0.0f;
     private float soundFrequency = 2.0f;
 
+    public bool gavinUnderAttack = false;
+    float attackTimer = 0;
+    float prevHealth;
+    bool haveBeenAttacked = false;
+    float lastAttackedMoment;
+
 
 
     void Start()
     {
         gavinStats = gavin.gameObject.GetComponent<GavinStats>();
+        enemyStats = enemy.gameObject.GetComponent<EnemyStats>();
 
         gameOverText.gameObject.SetActive(false);
+
+        prevHealth = gavinStats.health;
     }
 
     // Update is called once per frame
@@ -44,6 +53,8 @@ public class GameManager : MonoBehaviour
     {
         GavinMovingControl();
         HandleSoundPosition();
+        gavinUnderAttack = AttackControl();
+        Debug.Log("gavinUnderAttack = " + gavinUnderAttack);
         DeathControl();
         GameOverCondition();
         if (gavinWon || enemiesWon)
@@ -90,6 +101,36 @@ public class GameManager : MonoBehaviour
         else if (soundTimer >= (1 / soundFrequency))
         {
             soundExists = false;
+        }
+    }
+
+    bool AttackControl()
+    {
+        if (gavinStats.health < prevHealth)
+        {
+            haveBeenAttacked = true;
+            lastAttackedMoment = Time.time;
+            return true;
+        }
+        else
+        {
+            if (haveBeenAttacked)
+            {
+                attackTimer += Time.deltaTime;
+                if (attackTimer - lastAttackedMoment > 1 / enemyStats.attackSpeed)
+                {
+                    attackTimer = 0;
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 

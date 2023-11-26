@@ -53,11 +53,7 @@ public class ExploreState : State
     public GameObject walked_prefab;
     public GameObject destination_prefab;
 
-    public bool underAttack = false;
-    public GavinStats gavinStats;
-    public EnemyStats enemyStats;
-    float attackTimer = 0;
-    float prevHealth;
+    
 
 
     public override State RunCurrentState()
@@ -81,10 +77,8 @@ public class ExploreState : State
             gavin.transform.Rotate(0, 90* Time.deltaTime * turningSide, 0, Space.Self) ;
         }
         float distance = Vector3.Distance(gavin.transform.position, enemy.transform.position);
-
-        underAttack = AttackControl();
         
-        if (decisionMaking.attack || underAttack)
+        if (decisionMaking.attack)
         {
             return attackState;
         }
@@ -125,10 +119,7 @@ public class ExploreState : State
 
         decisionMaking = GetComponentInParent<DecisionMaking>();
 
-        gavinStats = GetComponentInParent<GavinStats>();
-        enemyStats = enemy.GetComponent<EnemyStats>();
-
-        prevHealth = gavinStats.health;
+        
     }
 
     void AnalizePath() {
@@ -422,6 +413,9 @@ public class ExploreState : State
         // }
     }
 
+<<<<<<< HEAD
+    
+=======
     public int CalculateSide() {
         squaresInCircle.Clear();
         foreach (Vector3 square in squares) {
@@ -491,4 +485,5 @@ public class ExploreState : State
             }
         }
     }
+>>>>>>> ec2a7b6c1043a8bd8a96a9fc0912603c3b423de2
 }

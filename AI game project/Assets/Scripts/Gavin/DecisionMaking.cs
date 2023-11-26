@@ -11,9 +11,13 @@ public class DecisionMaking : MonoBehaviour
     private float chasingTime = 2.0f;  // after how much time of not detecting enemies should attack go back to false
     private float timer = 0f;  // counts how much time isnt detecting enemies
 
+    [SerializeField] GameObject manager;
+    private GameManager gameManager;
+
     private void Start()
     {
         gavinVision = GetComponent<GavinVision>();
+        gameManager = manager.GetComponent<GameManager>();
     }
 
     private void Update()
@@ -39,6 +43,11 @@ public class DecisionMaking : MonoBehaviour
                 attack = false;
                 timer = 0;
             }
+        }
+
+        if (gameManager.gavinUnderAttack)
+        {
+            attack = true;
         }
     }
 }

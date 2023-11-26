@@ -899,9 +899,6 @@ MonoBehaviour:
   destination_distance: 10
   walked_prefab: {fileID: 2314213476232929464, guid: 0afef4a17609989c1ba58f58cfefc30c, type: 3}
   destination_prefab: {fileID: 4570132229722196266, guid: dab6d9a29f0844561a930e65bae55603, type: 3}
-  underAttack: 0
-  gavinStats: {fileID: 0}
-  enemyStats: {fileID: 0}
 --- !u!1 &575214777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1119,7 @@ MonoBehaviour:
   enemiesInSight: []
   timer: 0
   gapTime: 0.5
+  manager: {fileID: 1833606493}
 --- !u!195 &575214789
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1158,6 +1156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attack: 0
   unexploredPaths: 0
+  manager: {fileID: 1833606493}
 --- !u!114 &575214791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3672,6 +3671,7 @@ MonoBehaviour:
   gameOverText: {fileID: 1668221850}
   gavinIsMoving: 0
   gavinJustStartedMoving: 0
+  gavinUnderAttack: 0
 --- !u!4 &1833606495
 Transform:
   m_ObjectHideFlags: 0
