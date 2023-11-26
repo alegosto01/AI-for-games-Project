@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour
     private float soundFrequency = 2.0f;
 
     public bool gavinUnderAttack = false;
-    float attackTimer = 0;
     float prevHealth;
     bool haveBeenAttacked = false;
     float lastAttackedMoment;
@@ -54,7 +53,7 @@ public class GameManager : MonoBehaviour
         GavinMovingControl();
         HandleSoundPosition();
         gavinUnderAttack = AttackControl();
-        Debug.Log("gavinUnderAttack = " + gavinUnderAttack);
+        prevHealth = gavinStats.health;
         DeathControl();
         GameOverCondition();
         if (gavinWon || enemiesWon)
@@ -116,10 +115,8 @@ public class GameManager : MonoBehaviour
         {
             if (haveBeenAttacked)
             {
-                attackTimer += Time.deltaTime;
-                if (attackTimer - lastAttackedMoment > 1 / enemyStats.attackSpeed)
+                if (Time.time - lastAttackedMoment > 1 / enemyStats.attackSpeed)
                 {
-                    attackTimer = 0;
                     return false;
                 }
                 else

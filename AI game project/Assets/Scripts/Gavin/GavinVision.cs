@@ -147,6 +147,7 @@ public class GavinVision : MonoBehaviour
                 if (!enemiesInSight.Contains(nearestEnemy))
                 {
                     enemiesInSight.Add(nearestEnemy);
+                    enemiesDetected = true;
                 }
             }
 

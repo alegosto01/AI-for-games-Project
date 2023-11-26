@@ -412,10 +412,6 @@ public class ExploreState : State
         //     Debug.Log("ostacolo");
         // }
     }
-
-<<<<<<< HEAD
-    
-=======
     public int CalculateSide() {
         squaresInCircle.Clear();
         foreach (Vector3 square in squares) {
@@ -465,25 +461,4 @@ public class ExploreState : State
         }
 
     }
-
-    bool AttackControl()
-    {
-        if (gavinStats.health < prevHealth)
-        {
-            return true;
-        }
-        else
-        {
-            attackTimer += Time.deltaTime;
-            if (attackTimer > 1 / enemyStats.attackSpeed)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-    }
->>>>>>> ec2a7b6c1043a8bd8a96a9fc0912603c3b423de2
 }

@@ -40,11 +40,12 @@ public class GavinAttackState : State
         enemies = GetComponentInParent<GavinVision>().enemiesInSight;  // a list with all the enemies that gavin can currently see
         if (!decisionMaking.attack && !chaseEnemy)
         {
+            Debug.Log("Went back to explore from the first if");
             return exploreState;
         }
 
         // choose a random enemy from the list to attack
-        if (!attackingEnemy && enemies.Count>0)
+        if (!attackingEnemy && enemies.Count > 0)
         {
             System.Random random = new System.Random();
             int randomIndex = random.Next(enemies.Count);
@@ -54,12 +55,16 @@ public class GavinAttackState : State
         }
         else if (!attackingEnemy)
         {
+            Debug.Log("Went back to explore from the second if");
             return exploreState;
+        }
+        else if (attackingEnemy && !chaseEnemy)
+        {
+            // choose a new target enemy (most probably the one closest)
         }
 
 
         // if the enemy that I was attacking is dead set attackingEnemy back to false
-        Debug.Log("enemy.activeSelf = " + enemy.activeSelf);
         if (!enemy.activeSelf && attackingEnemy)
         {
             attackingEnemy = false;
@@ -86,6 +91,7 @@ public class GavinAttackState : State
         }
 
         chaseEnemy = ShouldChaseEnemy(enemy);
+        // Debug.Log("visionTimer = " + visionTimer + ", chaseEnemy = " + chaseEnemy);
         return this;
     }
 

@@ -48,12 +48,12 @@ public class GavinHearing : MonoBehaviour
     }
 
     // code to draw the arc on the scene in unity
-    private void OnDrawGizmos() {
-        source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-        Color c = Color.blue;
-        Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
-    }
+    //private void OnDrawGizmos() {
+    //    source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
+    //    Color c = Color.blue;
+    //    Handles.color = c;
+    //    Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+    //}
 
 
     public void CheckNoise() {
