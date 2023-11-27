@@ -21,6 +21,7 @@ public class AStar : MonoBehaviour
     public Vector3 destination = new Vector3();
 
     public GameObject maze;
+    public bool changedPath = false;
 
 
     // Start is called before the first frame update
@@ -51,9 +52,8 @@ public class AStar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Vector3.Distance(transform.position, destination));
+//        Debug.Log(Vector3.Distance(transform.position, destination));
         if(Vector3.Distance(transform.position, destination) < 0.4f) {
-            Debug.Log("ciao");
             GoToNextPoint();
         }
     }
@@ -105,28 +105,43 @@ public class AStar : MonoBehaviour
     // }
 
     public void GoToNextPoint() {
-        List<MazeCell> list_neighbours = GetNeigbours(currentCell);
-        //Debug.Log(list_neighbours[0].transform.position);
-        if(list_neighbours.Count == 1) {
-            agent.destination = list_neighbours[0].transform.position;
-            currentCell = list_neighbours[0];
-        }
-        else if(list_neighbours.Count > 0) {
-            agent.destination = list_neighbours[0].transform.position;
-            currentCell = list_neighbours[0];
-
-            list_neighbours.RemoveAt(0);
-            foreach (MazeCell cell in list_neighbours) {
-                exploreCells.Add(cell);
-            }
+        if(currentCell == endPosition) {
+            Debug.Log("found exit!!");
         }
         else {
-            agent.destination = exploreCells[exploreCells.Count - 1].transform.position;
-            currentCell = exploreCells[exploreCells.Count - 1];
-            exploreCells.RemoveAt(exploreCells.Count - 1);
-        }
+            List<MazeCell> list_neighbours = GetNeigbours(currentCell);
+            Debug.Log(list_neighbours.Count);
+            if(list_neighbours.Count == 1) {
+                agent.destination = list_neighbours[0].transform.position;
+                currentCell = list_neighbours[0];
+            }
+            else if(list_neighbours.Count > 0) {
+                agent.destination = list_neighbours[0].transform.position;
+                currentCell = list_neighbours[0];
+
+                list_neighbours.RemoveAt(0);
+                foreach (MazeCell cell in list_neighbours) {
+                    exploreCells.Add(cell);
+                }
+            }
+            else {
+                agent.destination = exploreCells[exploreCells.Count - 1].transform.position;
+                currentCell = exploreCells[exploreCells.Count - 1];
+                exploreCells.RemoveAt(exploreCells.Count - 1);
+            }
+            destination = agent.destination;
+        } 
+
+    }
+
+    public void ChangePath() {
+        changedPath = true;
+        agent.destination = exploreCells[exploreCells.Count - 1].transform.position;
         destination = agent.destination;
 
+        currentCell = exploreCells[exploreCells.Count - 1];
+        exploreCells.RemoveAt(exploreCells.Count - 1);
+        Debug.Log("changing the path");
     }
 
     public List<MazeCell> GetNeigbours(MazeCell currentCell) {
