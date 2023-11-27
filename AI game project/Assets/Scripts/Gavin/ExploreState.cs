@@ -59,29 +59,29 @@ public class ExploreState : State
     public override State RunCurrentState()
     {
       
-        timer -= Time.deltaTime;
-        // i call the explore algorithm with the timer or if he is almost arrived to the destination but is not turning
-        // !turning avoid a bug where gavin will be stuck in a point
-        //if (timer < 0) {
-        if((Vector3.Distance(transform.position, destination) < destination_distance/3 && !turning) || (timer < 0 && turning)) {
-            if(!canSeeTheExit) {
-                AnalizePath();
-            }
-            GotoNextPoint();
-            timer = 0.5f;
-        }
+        // timer -= Time.deltaTime;
+        // // i call the explore algorithm with the timer or if he is almost arrived to the destination but is not turning
+        // // !turning avoid a bug where gavin will be stuck in a point
+        // //if (timer < 0) {
+        // if((Vector3.Distance(transform.position, destination) < destination_distance/3 && !turning) || (timer < 0 && turning)) {
+        //     if(!canSeeTheExit) {
+        //         AnalizePath();
+        //     }
+        //     GotoNextPoint();
+        //     timer = 0.5f;
+        // }
 
 
-        // when gavins need to rotate to find a way rotates depending on turning side
-        if(turning) {
-            gavin.transform.Rotate(0, 90* Time.deltaTime * turningSide, 0, Space.Self) ;
-        }
-        float distance = Vector3.Distance(gavin.transform.position, enemy.transform.position);
+        // // when gavins need to rotate to find a way rotates depending on turning side
+        // if(turning) {
+        //     gavin.transform.Rotate(0, 90* Time.deltaTime * turningSide, 0, Space.Self) ;
+        // }
+        // float distance = Vector3.Distance(gavin.transform.position, enemy.transform.position);
         
-        if (decisionMaking.attack)
-        {
-            return attackState;
-        }
+        // if (decisionMaking.attack)
+        // {
+        //     return attackState;
+        // }
         return this;
 
         

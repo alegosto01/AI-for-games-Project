@@ -1179,6 +1179,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4651469282860135656}
   _backWall: {fileID: 840648386227154118}
   _unvisitedBlock: {fileID: 4397021131665532695}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &158298664489372127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,6 +1235,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3047126939987203535}
   _backWall: {fileID: 8788352802614080782}
   _unvisitedBlock: {fileID: 6341172172381285300}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &164753210370260432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,6 +1511,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3276227453048913180}
   _backWall: {fileID: 2323916539963461781}
   _unvisitedBlock: {fileID: 3829942186855183929}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &221076583729756110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2061,8 @@ MonoBehaviour:
   _frontWall: {fileID: 2983723103028238083}
   _backWall: {fileID: 4044906759362668739}
   _unvisitedBlock: {fileID: 784342693789691767}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &283941556918122582
 GameObject:
   m_ObjectHideFlags: 0
@@ -4770,6 +4778,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5462720397125223754}
   _backWall: {fileID: 2213567489883023961}
   _unvisitedBlock: {fileID: 1551179188778097411}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &640666733859990953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5397,6 +5407,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5522763789972119841}
   _backWall: {fileID: 6361388509598091186}
   _unvisitedBlock: {fileID: 6176536604209556355}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &734000631832956368
 GameObject:
   m_ObjectHideFlags: 0
@@ -6792,6 +6804,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7246284598101328278}
   _backWall: {fileID: 7279157545731541607}
   _unvisitedBlock: {fileID: 8698623154774830082}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &908971371748019922
 GameObject:
   m_ObjectHideFlags: 0
@@ -7307,6 +7321,8 @@ MonoBehaviour:
   _frontWall: {fileID: 998787330035407795}
   _backWall: {fileID: 566388356967328711}
   _unvisitedBlock: {fileID: 6573488718972523866}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &997787991734834680
 GameObject:
   m_ObjectHideFlags: 0
@@ -8320,6 +8336,8 @@ MonoBehaviour:
   _frontWall: {fileID: 9172545982613802746}
   _backWall: {fileID: 2012530164922395349}
   _unvisitedBlock: {fileID: 3196001981820128289}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1114685529495212192
 GameObject:
   m_ObjectHideFlags: 0
@@ -8428,6 +8446,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5203677106451893840}
   _backWall: {fileID: 1139586908663585327}
   _unvisitedBlock: {fileID: 3336905003657934562}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1139586908663585327
 GameObject:
   m_ObjectHideFlags: 0
@@ -8644,6 +8664,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5849074681818113804}
   _backWall: {fileID: 7435766122884702026}
   _unvisitedBlock: {fileID: 8565305283248595239}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1162706861411988682
 GameObject:
   m_ObjectHideFlags: 0
@@ -10869,6 +10891,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5961145100980031507}
   _backWall: {fileID: 1635134295162996781}
   _unvisitedBlock: {fileID: 3431650655905753560}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1394479190454301709
 GameObject:
   m_ObjectHideFlags: 0
@@ -11114,6 +11138,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6030559193063651595}
   _backWall: {fileID: 792293901128279164}
   _unvisitedBlock: {fileID: 165742308813575128}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1445926798519168823
 GameObject:
   m_ObjectHideFlags: 0
@@ -11251,6 +11277,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1863584085469810389}
   _backWall: {fileID: 7856777802579021852}
   _unvisitedBlock: {fileID: 4563033535891609026}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1473712786630962977
 GameObject:
   m_ObjectHideFlags: 0
@@ -12401,6 +12429,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7464906653268322591}
   _backWall: {fileID: 3930681338821405896}
   _unvisitedBlock: {fileID: 5443318634819620216}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1594880739238359799
 GameObject:
   m_ObjectHideFlags: 0
@@ -13360,6 +13390,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6930992488970970379}
   _backWall: {fileID: 6186429153899721831}
   _unvisitedBlock: {fileID: 6461841923155923024}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1693297479600931728
 GameObject:
   m_ObjectHideFlags: 0
@@ -13987,6 +14019,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5023535816407493086}
   _backWall: {fileID: 8816110786967866334}
   _unvisitedBlock: {fileID: 7233907298008914004}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1807970503127814121
 GameObject:
   m_ObjectHideFlags: 0
@@ -14178,6 +14212,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6737016513839606974}
   _backWall: {fileID: 7212689064998930552}
   _unvisitedBlock: {fileID: 3999986100770666703}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1822868706775809836
 GameObject:
   m_ObjectHideFlags: 0
@@ -14755,6 +14791,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7856209627594627585}
   _backWall: {fileID: 6480487914911580955}
   _unvisitedBlock: {fileID: 4775093321538700984}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1863584085469810389
 GameObject:
   m_ObjectHideFlags: 0
@@ -15278,6 +15316,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3153069504130584775}
   _backWall: {fileID: 109113409286671126}
   _unvisitedBlock: {fileID: 2837042405874112175}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1894154356250329111
 GameObject:
   m_ObjectHideFlags: 0
@@ -15294,7 +15334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8907188586440990297
 Transform:
   m_ObjectHideFlags: 0
@@ -15332,6 +15372,8 @@ MonoBehaviour:
   _frontWall: {fileID: 320096169181042972}
   _backWall: {fileID: 3768167444051921798}
   _unvisitedBlock: {fileID: 7220200992816836604}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &1905052126252689492
 GameObject:
   m_ObjectHideFlags: 0
@@ -16428,6 +16470,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8165844673506536537}
   _backWall: {fileID: 4659626992208156062}
   _unvisitedBlock: {fileID: 6534412407971862053}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2044808790006436870
 GameObject:
   m_ObjectHideFlags: 0
@@ -16648,6 +16692,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7427525257413018342}
   _backWall: {fileID: 5410248871801266504}
   _unvisitedBlock: {fileID: 15963420763435607}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2054622437461200628
 GameObject:
   m_ObjectHideFlags: 0
@@ -16756,6 +16802,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3279052493007444704}
   _backWall: {fileID: 2437120388940354477}
   _unvisitedBlock: {fileID: 3285899661484960164}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2078267652628879553
 GameObject:
   m_ObjectHideFlags: 0
@@ -17939,6 +17987,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1419574074471549733}
   _backWall: {fileID: 4863815163060350656}
   _unvisitedBlock: {fileID: 5337605049962979654}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2244825885198705043
 GameObject:
   m_ObjectHideFlags: 0
@@ -18375,6 +18425,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8851973613242785004}
   _backWall: {fileID: 2021114954854181728}
   _unvisitedBlock: {fileID: 7563191832135154647}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2301874433855594100
 GameObject:
   m_ObjectHideFlags: 0
@@ -18429,6 +18481,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7323117493306418933}
   _backWall: {fileID: 5866313676846623396}
   _unvisitedBlock: {fileID: 2699285958519708801}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2305532677931761858
 GameObject:
   m_ObjectHideFlags: 0
@@ -18591,6 +18645,8 @@ MonoBehaviour:
   _frontWall: {fileID: 734000631832956368}
   _backWall: {fileID: 2305532677931761858}
   _unvisitedBlock: {fileID: 7156313623046446205}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2322485850781085737
 GameObject:
   m_ObjectHideFlags: 0
@@ -19110,6 +19166,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5068233442035610903}
   _backWall: {fileID: 4419858313199046517}
   _unvisitedBlock: {fileID: 6031027319978645029}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2398024732814552673
 GameObject:
   m_ObjectHideFlags: 0
@@ -19521,6 +19579,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3776842704260490323}
   _backWall: {fileID: 100779095207132717}
   _unvisitedBlock: {fileID: 2447827962329945224}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2445338043991262301
 GameObject:
   m_ObjectHideFlags: 0
@@ -20260,6 +20320,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6940796988151958748}
   _backWall: {fileID: 841973115580633713}
   _unvisitedBlock: {fileID: 1159697531977880118}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2529410751176668911
 GameObject:
   m_ObjectHideFlags: 0
@@ -20779,6 +20841,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4678434480798122558}
   _backWall: {fileID: 7637454791231473628}
   _unvisitedBlock: {fileID: 1756047986416232134}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2568099212411893274
 GameObject:
   m_ObjectHideFlags: 0
@@ -21464,6 +21528,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5191815702605465693}
   _backWall: {fileID: 2450887146527236149}
   _unvisitedBlock: {fileID: 3545457939350684784}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2629986959790502600
 GameObject:
   m_ObjectHideFlags: 0
@@ -23303,6 +23369,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5691475025421027292}
   _backWall: {fileID: 8331561218516021757}
   _unvisitedBlock: {fileID: 567754957788119445}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2829999424316931050
 GameObject:
   m_ObjectHideFlags: 0
@@ -23797,6 +23865,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6009189907640978572}
   _backWall: {fileID: 3271187205921205004}
   _unvisitedBlock: {fileID: 16891593589514815}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &2881537318779776484
 GameObject:
   m_ObjectHideFlags: 0
@@ -24644,6 +24714,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3725583513412821860}
   _backWall: {fileID: 3195418535298660245}
   _unvisitedBlock: {fileID: 7277302333317867791}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3034514978281882245
 GameObject:
   m_ObjectHideFlags: 0
@@ -24864,6 +24936,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4873770735555770456}
   _backWall: {fileID: 8307691574889194363}
   _unvisitedBlock: {fileID: 1594880739238359799}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3036571019670858927
 GameObject:
   m_ObjectHideFlags: 0
@@ -26014,6 +26088,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7585264264567634305}
   _backWall: {fileID: 5662120572608278641}
   _unvisitedBlock: {fileID: 389911992990894549}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3145634366193931619
 GameObject:
   m_ObjectHideFlags: 0
@@ -27799,6 +27875,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4716668010064342831}
   _backWall: {fileID: 6900238532518140199}
   _unvisitedBlock: {fileID: 4864464311802108532}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3321074914721183147
 GameObject:
   m_ObjectHideFlags: 0
@@ -27853,6 +27931,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7644751105081865053}
   _backWall: {fileID: 1615580135700501289}
   _unvisitedBlock: {fileID: 6912957236486212921}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3321879517564117417
 GameObject:
   m_ObjectHideFlags: 0
@@ -30111,6 +30191,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1359134898518730094}
   _backWall: {fileID: 7375072583522897661}
   _unvisitedBlock: {fileID: 5724454971672665150}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3596156774007495336
 GameObject:
   m_ObjectHideFlags: 0
@@ -30551,6 +30633,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4789033475961482337}
   _backWall: {fileID: 6627762205438152179}
   _unvisitedBlock: {fileID: 6863796574344516456}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3647386477825577061
 GameObject:
   m_ObjectHideFlags: 0
@@ -31622,6 +31706,8 @@ MonoBehaviour:
   _frontWall: {fileID: 9213728560677617959}
   _backWall: {fileID: 8068962440639225996}
   _unvisitedBlock: {fileID: 3064550199172298587}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3796589736512362907
 GameObject:
   m_ObjectHideFlags: 0
@@ -32415,6 +32501,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8693086775911953480}
   _backWall: {fileID: 5673578225526661672}
   _unvisitedBlock: {fileID: 3688944010816208600}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &3962391906211618697
 GameObject:
   m_ObjectHideFlags: 0
@@ -33096,6 +33184,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4690621262807408968}
   _backWall: {fileID: 1693297479600931728}
   _unvisitedBlock: {fileID: 2655069435857641172}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4008765828233656425
 GameObject:
   m_ObjectHideFlags: 0
@@ -34520,6 +34610,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7140421830860300824}
   _backWall: {fileID: 8292750442525505528}
   _unvisitedBlock: {fileID: 6587017237338759289}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4176676002248009873
 GameObject:
   m_ObjectHideFlags: 0
@@ -35288,6 +35380,8 @@ MonoBehaviour:
   _frontWall: {fileID: 974886126176356654}
   _backWall: {fileID: 8551796407812650370}
   _unvisitedBlock: {fileID: 8689365709846812346}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4281963948631545089
 GameObject:
   m_ObjectHideFlags: 0
@@ -35836,6 +35930,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7552670885592081690}
   _backWall: {fileID: 8865990652814176054}
   _unvisitedBlock: {fileID: 8215052090515447061}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4362157210194679268
 GameObject:
   m_ObjectHideFlags: 0
@@ -36766,6 +36862,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4906771484054151556}
   _backWall: {fileID: 7530922630281747554}
   _unvisitedBlock: {fileID: 4136779089903991653}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4474881626921610312
 GameObject:
   m_ObjectHideFlags: 0
@@ -37343,6 +37441,8 @@ MonoBehaviour:
   _frontWall: {fileID: 2529410751176668911}
   _backWall: {fileID: 8400675551900575196}
   _unvisitedBlock: {fileID: 8189166590494854748}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4551380539635026697
 GameObject:
   m_ObjectHideFlags: 0
@@ -37837,6 +37937,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4524257054036856884}
   _backWall: {fileID: 719983698505474803}
   _unvisitedBlock: {fileID: 3042325437263497096}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4573517035880189217
 GameObject:
   m_ObjectHideFlags: 0
@@ -41004,6 +41106,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8236547904473190167}
   _backWall: {fileID: 8276598108581288117}
   _unvisitedBlock: {fileID: 222851992621859853}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &4993241691562282645
 GameObject:
   m_ObjectHideFlags: 0
@@ -41224,6 +41328,8 @@ MonoBehaviour:
   _frontWall: {fileID: 932878028317787104}
   _backWall: {fileID: 6398508308770297139}
   _unvisitedBlock: {fileID: 5841666796586761446}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5005875815581195384
 GameObject:
   m_ObjectHideFlags: 0
@@ -41934,6 +42040,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7376215744181578341}
   _backWall: {fileID: 1332123009489547288}
   _unvisitedBlock: {fileID: 4582072821310375560}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5104472709886151048
 GameObject:
   m_ObjectHideFlags: 0
@@ -42370,6 +42478,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3008184003727607105}
   _backWall: {fileID: 6689063073478516948}
   _unvisitedBlock: {fileID: 1570890379530868723}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5191815702605465693
 GameObject:
   m_ObjectHideFlags: 0
@@ -42997,6 +43107,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8144289750347413777}
   _backWall: {fileID: 8034349674644060886}
   _unvisitedBlock: {fileID: 8523277548445853647}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5287441677518597916
 GameObject:
   m_ObjectHideFlags: 0
@@ -43134,6 +43246,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8435891646241153884}
   _backWall: {fileID: 2467280730030658509}
   _unvisitedBlock: {fileID: 7408212794092519251}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5293795150037429578
 GameObject:
   m_ObjectHideFlags: 0
@@ -43653,6 +43767,8 @@ MonoBehaviour:
   _frontWall: {fileID: 953058906533294557}
   _backWall: {fileID: 4020048024347932115}
   _unvisitedBlock: {fileID: 5511043219967009627}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5386386332693250861
 GameObject:
   m_ObjectHideFlags: 0
@@ -43707,6 +43823,8 @@ MonoBehaviour:
   _frontWall: {fileID: 404538620352387778}
   _backWall: {fileID: 5151075144875155219}
   _unvisitedBlock: {fileID: 7556782616341239441}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5397678077518158643
 GameObject:
   m_ObjectHideFlags: 0
@@ -44060,6 +44178,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7319798181219759925}
   _backWall: {fileID: 4536433892352773631}
   _unvisitedBlock: {fileID: 4795380670479199807}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5443318634819620216
 GameObject:
   m_ObjectHideFlags: 0
@@ -45127,6 +45247,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1310301791594552091}
   _backWall: {fileID: 6748380044997234340}
   _unvisitedBlock: {fileID: 4871871623260138944}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5607582423294146721
 GameObject:
   m_ObjectHideFlags: 0
@@ -45783,6 +45905,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4332570156598093741}
   _backWall: {fileID: 8528491507335553212}
   _unvisitedBlock: {fileID: 1327540809080215104}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5689283228440996059
 GameObject:
   m_ObjectHideFlags: 0
@@ -45837,6 +45961,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6993903240903041349}
   _backWall: {fileID: 6862130978604690009}
   _unvisitedBlock: {fileID: 6222902268629780296}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5691475025421027292
 GameObject:
   m_ObjectHideFlags: 0
@@ -47232,6 +47358,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5152124428910493258}
   _backWall: {fileID: 4373477684191167956}
   _unvisitedBlock: {fileID: 3707903566149744777}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5854049820444905509
 GameObject:
   m_ObjectHideFlags: 0
@@ -47506,6 +47634,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8657871235586560000}
   _backWall: {fileID: 2511581280396359379}
   _unvisitedBlock: {fileID: 866686024414204813}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &5887900265728409153
 GameObject:
   m_ObjectHideFlags: 0
@@ -48801,6 +48931,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8475349755373483826}
   _backWall: {fileID: 323989878099514363}
   _unvisitedBlock: {fileID: 5664778241791668101}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6030559193063651595
 GameObject:
   m_ObjectHideFlags: 0
@@ -50445,6 +50577,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5830375391646318579}
   _backWall: {fileID: 5788716029318725752}
   _unvisitedBlock: {fileID: 5650136485130681868}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6260061687677365882
 GameObject:
   m_ObjectHideFlags: 0
@@ -50553,6 +50687,8 @@ MonoBehaviour:
   _frontWall: {fileID: 9196937872040161295}
   _backWall: {fileID: 6054508821223087214}
   _unvisitedBlock: {fileID: 6482304922151916807}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6269626325300750433
 GameObject:
   m_ObjectHideFlags: 0
@@ -51155,6 +51291,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1807970503127814121}
   _backWall: {fileID: 2331422088515130899}
   _unvisitedBlock: {fileID: 4133890105754284207}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6341172172381285300
 GameObject:
   m_ObjectHideFlags: 0
@@ -51346,6 +51484,8 @@ MonoBehaviour:
   _frontWall: {fileID: 242549920818037003}
   _backWall: {fileID: 3962391906211618697}
   _unvisitedBlock: {fileID: 2614828342892005350}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6361388509598091186
 GameObject:
   m_ObjectHideFlags: 0
@@ -52741,6 +52881,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4338615922289519030}
   _backWall: {fileID: 7720855532307728275}
   _unvisitedBlock: {fileID: 5804514733591470637}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6554371798129886457
 GameObject:
   m_ObjectHideFlags: 0
@@ -52878,6 +53020,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1068552329588662081}
   _backWall: {fileID: 6865296122212267318}
   _unvisitedBlock: {fileID: 4050715536552637695}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6563240611446926496
 GameObject:
   m_ObjectHideFlags: 0
@@ -53617,6 +53761,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8104414225657193022}
   _backWall: {fileID: 5607582423294146721}
   _unvisitedBlock: {fileID: 3066409613990166824}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6616781696233804486
 GameObject:
   m_ObjectHideFlags: 0
@@ -54140,6 +54286,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3565294284086331414}
   _backWall: {fileID: 5140469174258140125}
   _unvisitedBlock: {fileID: 6437534276967886876}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6689063073478516948
 GameObject:
   m_ObjectHideFlags: 0
@@ -55236,6 +55384,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1776099870036983341}
   _backWall: {fileID: 3987898005591320058}
   _unvisitedBlock: {fileID: 754882053687016318}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6861147377117573620
 GameObject:
   m_ObjectHideFlags: 0
@@ -55290,6 +55440,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4646279559043639762}
   _backWall: {fileID: 8042204686267196888}
   _unvisitedBlock: {fileID: 8213336564448544175}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6862130978604690009
 GameObject:
   m_ObjectHideFlags: 0
@@ -56162,6 +56314,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8090314734965069585}
   _backWall: {fileID: 4842254157405453594}
   _unvisitedBlock: {fileID: 5027109252665681992}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &6946092709011268855
 GameObject:
   m_ObjectHideFlags: 0
@@ -57806,6 +57960,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8003627076501467846}
   _backWall: {fileID: 5197677359332178667}
   _unvisitedBlock: {fileID: 9131969689187375276}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7156313623046446205
 GameObject:
   m_ObjectHideFlags: 0
@@ -58213,6 +58369,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3104122364931285415}
   _backWall: {fileID: 3833691389311044184}
   _unvisitedBlock: {fileID: 5262084984690460960}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7212689064998930552
 GameObject:
   m_ObjectHideFlags: 0
@@ -58321,6 +58479,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8394709969445723017}
   _backWall: {fileID: 8809817771616428023}
   _unvisitedBlock: {fileID: 2296287150185479717}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7220200992816836604
 GameObject:
   m_ObjectHideFlags: 0
@@ -58429,6 +58589,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7859512357054283699}
   _backWall: {fileID: 3417440638451048943}
   _unvisitedBlock: {fileID: 63033589691294334}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7233907298008914004
 GameObject:
   m_ObjectHideFlags: 0
@@ -58836,6 +58998,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5104472709886151048}
   _backWall: {fileID: 3265655912466707165}
   _unvisitedBlock: {fileID: 2515136989563368368}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7284476735844458931
 GameObject:
   m_ObjectHideFlags: 0
@@ -58973,6 +59137,8 @@ MonoBehaviour:
   _frontWall: {fileID: 6009962080414104810}
   _backWall: {fileID: 5429027514452144382}
   _unvisitedBlock: {fileID: 2322485850781085737}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7290921975621679338
 GameObject:
   m_ObjectHideFlags: 0
@@ -60779,6 +60945,8 @@ MonoBehaviour:
   _frontWall: {fileID: 868799017441432266}
   _backWall: {fileID: 8600711364728032827}
   _unvisitedBlock: {fileID: 1171095942405227696}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7435766122884702026
 GameObject:
   m_ObjectHideFlags: 0
@@ -61078,6 +61246,8 @@ MonoBehaviour:
   _frontWall: {fileID: 5052845287584080296}
   _backWall: {fileID: 8546864531376363490}
   _unvisitedBlock: {fileID: 7294152253328052031}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7495629927249807024
 GameObject:
   m_ObjectHideFlags: 0
@@ -62340,6 +62510,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7166108970091250573}
   _backWall: {fileID: 4673902656595244569}
   _unvisitedBlock: {fileID: 6563240611446926496}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7588112351995236563
 GameObject:
   m_ObjectHideFlags: 0
@@ -62722,6 +62894,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3990852579010209115}
   _backWall: {fileID: 2962290670637967843}
   _unvisitedBlock: {fileID: 7924857765752849407}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7637454791231473628
 GameObject:
   m_ObjectHideFlags: 0
@@ -63104,6 +63278,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7315651262675406174}
   _backWall: {fileID: 2714726292859775638}
   _unvisitedBlock: {fileID: 9195265834558698675}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7677992031082700273
 GameObject:
   m_ObjectHideFlags: 0
@@ -64528,6 +64704,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1274754058146978971}
   _backWall: {fileID: 4856004242315763434}
   _unvisitedBlock: {fileID: 8053367649766386126}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7870538097112762321
 GameObject:
   m_ObjectHideFlags: 0
@@ -65047,6 +65225,8 @@ MonoBehaviour:
   _frontWall: {fileID: 2958027270436390863}
   _backWall: {fileID: 4557422561771189754}
   _unvisitedBlock: {fileID: 2147072201187560388}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7937793482301418515
 GameObject:
   m_ObjectHideFlags: 0
@@ -65101,6 +65281,8 @@ MonoBehaviour:
   _frontWall: {fileID: 2220331549733061818}
   _backWall: {fileID: 8109165787918186249}
   _unvisitedBlock: {fileID: 8019214451498524478}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7942873401598375782
 GameObject:
   m_ObjectHideFlags: 0
@@ -65404,6 +65586,8 @@ MonoBehaviour:
   _frontWall: {fileID: 927956647403257508}
   _backWall: {fileID: 9066425901103481344}
   _unvisitedBlock: {fileID: 423089946013194695}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &7974584647455860915
 GameObject:
   m_ObjectHideFlags: 0
@@ -66691,6 +66875,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8596179884842546071}
   _backWall: {fileID: 9043175903675213920}
   _unvisitedBlock: {fileID: 2681898399619888332}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &8104414225657193022
 GameObject:
   m_ObjectHideFlags: 0
@@ -72367,6 +72553,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8366605794711945097}
   _backWall: {fileID: 2698659938639833372}
   _unvisitedBlock: {fileID: 2054622437461200628}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &8851973613242785004
 GameObject:
   m_ObjectHideFlags: 0
@@ -72940,6 +73128,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3599090234246135002}
   _backWall: {fileID: 1960619332715283803}
   _unvisitedBlock: {fileID: 8788790241832848886}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &8918136967656125472
 GameObject:
   m_ObjectHideFlags: 0
@@ -73214,6 +73404,8 @@ MonoBehaviour:
   _frontWall: {fileID: 8775238770768605097}
   _backWall: {fileID: 8220328622270699915}
   _unvisitedBlock: {fileID: 4399730958873661803}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &8993850012122026473
 GameObject:
   m_ObjectHideFlags: 0
@@ -73351,6 +73543,8 @@ MonoBehaviour:
   _frontWall: {fileID: 3409298555857931685}
   _backWall: {fileID: 4259102796065287047}
   _unvisitedBlock: {fileID: 4891444846226336571}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &9023988696694465600
 GameObject:
   m_ObjectHideFlags: 0
@@ -73542,6 +73736,8 @@ MonoBehaviour:
   _frontWall: {fileID: 1486483235858596676}
   _backWall: {fileID: 541526298767175904}
   _unvisitedBlock: {fileID: 2573560414926857182}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &9043175903675213920
 GameObject:
   m_ObjectHideFlags: 0
@@ -73704,6 +73900,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4209181922960170357}
   _backWall: {fileID: 676195625567325819}
   _unvisitedBlock: {fileID: 1965866474258160016}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &9093393442588490608
 GameObject:
   m_ObjectHideFlags: 0
@@ -74663,6 +74861,8 @@ MonoBehaviour:
   _frontWall: {fileID: 4836384989024869576}
   _backWall: {fileID: 4705038219734266059}
   _unvisitedBlock: {fileID: 4677794571058334310}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &9210267874587954846
 GameObject:
   m_ObjectHideFlags: 0
@@ -74717,6 +74917,8 @@ MonoBehaviour:
   _frontWall: {fileID: 7377542912322376492}
   _backWall: {fileID: 7092045789665754018}
   _unvisitedBlock: {fileID: 6484009598883043869}
+  passed: 0
+  deadEnd: 0
 --- !u!1 &9213728560677617959
 GameObject:
   m_ObjectHideFlags: 0
