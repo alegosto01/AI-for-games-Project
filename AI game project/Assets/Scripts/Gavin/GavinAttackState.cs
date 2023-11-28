@@ -37,11 +37,23 @@ public class GavinAttackState : State
 
     public override State RunCurrentState()
     {
+        Debug.Log("im attakcking");
         enemies = GetComponentInParent<GavinVision>().enemiesInSight;  // a list with all the enemies that gavin can currently see
-        if (!decisionMaking.attack && !chaseEnemy)
+        if ((!decisionMaking.attack && !chaseEnemy))
         {
             Debug.Log("Went back to explore from the first if");
+            enemies.Clear();
             return exploreState;
+        }
+        if (decisionMaking.runAway)
+        {
+            if (!exploreState.changedPath)
+            {
+                exploreState.agent.destination = exploreState.destination;
+                Debug.Log("i changed the destination back to the last one");
+                enemies.Clear();
+                return exploreState;
+            }
         }
 
         // choose a random enemy from the list to attack
@@ -56,6 +68,7 @@ public class GavinAttackState : State
         else if (!attackingEnemy)
         {
             Debug.Log("Went back to explore from the second if");
+            enemies.Clear();
             return exploreState;
         }
         else if (attackingEnemy && !chaseEnemy)

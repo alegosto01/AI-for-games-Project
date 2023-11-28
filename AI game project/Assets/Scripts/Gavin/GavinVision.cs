@@ -19,6 +19,8 @@ public class GavinVision : MonoBehaviour
     [SerializeField] GameObject manager;
     private GameManager gameManager;
 
+    public bool onDrawGizmos = false;
+
     private void Start()
     {
         gameManager = manager.GetComponent<GameManager>();
@@ -55,10 +57,14 @@ public class GavinVision : MonoBehaviour
     // code to draw the arc on the scene in unity
     private void OnDrawGizmos()
     {
-        source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-        Color c = Color.green;
-        Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+        if (onDrawGizmos)
+        {
+            source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
+            Color c = Color.green;
+            Handles.color = c;
+            Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+        }
+        
     }
 
     public void CheckVision()

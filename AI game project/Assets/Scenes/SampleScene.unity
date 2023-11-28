@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -603,6 +603,7 @@ MonoBehaviour:
   manager: {fileID: 1833606493}
   gavin: {fileID: 575214777}
   noiseHeard: 0
+  onDrawGizmos: 0
 --- !u!195 &143398755
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1298,42 +1299,24 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482363988}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bce7f6e3690a40740b3490f9c91ee0f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gavinScript: {fileID: 0}
-  gavin: {fileID: 575214777}
-  enemy: {fileID: 1172367834}
   attackState: {fileID: 1601418889}
-  maxDistance: 1
-  fov: 135
-  radius: 6
-  squares: []
-  surroundingSquares: []
-  seenSquares: []
-  currentSeenSquares: []
-  walkedSquares: []
-  obstacleSquares: []
-  exploringSquares: []
-  squaresInCircle: []
-  inArchSquaresDistances: []
-  leftDistancesSum: 0
-  rightDistancesSum: 0
-  agentSpeed: 3
+  mazeGenerator: {fileID: 1004490657}
+  startPosition: {fileID: 0}
+  endPosition: {fileID: 1718536239}
+  currentCell: {fileID: 1524293433}
   agent: {fileID: 575214789}
-  timer: 0.5
-  lockRotation: 0
-  canSeeTheExit: 0
-  exitPosition: {fileID: 797914021}
-  exitSquare: {x: 0, y: 0, z: 0}
-  turning: 1
-  turningSide: 1
+  optionCount: 0
+  exploreCells: []
+  gridCells: []
   destination: {x: 0, y: 0, z: 0}
-  destination_distance: 10
-  walked_prefab: {fileID: 2314213476232929464, guid: 0afef4a17609989c1ba58f58cfefc30c, type: 3}
-  destination_prefab: {fileID: 4570132229722196266, guid: dab6d9a29f0844561a930e65bae55603, type: 3}
+  maze: {fileID: 108467288}
+  changedPath: 0
 --- !u!114 &482363991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1341,7 +1324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482363988}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7657e0260306b925c987137ca2a4648a, type: 3}
   m_Name: 
@@ -1578,6 +1561,7 @@ MonoBehaviour:
   timer: 0
   gapTime: 0.5
   manager: {fileID: 1833606493}
+  onDrawGizmos: 0
 --- !u!195 &575214789
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1614,6 +1598,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   astar: {fileID: 482363991}
   attack: 0
+  runAway: 0
+  ranAway: 0
   manager: {fileID: 1833606493}
 --- !u!114 &575214791
 MonoBehaviour:
@@ -1643,7 +1629,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575214777}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7657e0260306b925c987137ca2a4648a, type: 3}
   m_Name: 
@@ -3000,7 +2986,7 @@ Transform:
   m_GameObject: {fileID: 1116151401}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3047,7 +3033,7 @@ Camera:
     height: 0.35
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 135
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -3243,6 +3229,7 @@ MonoBehaviour:
   manager: {fileID: 1833606493}
   gavin: {fileID: 575214777}
   noiseHeard: 0
+  onDrawGizmos: 0
 --- !u!114 &1172367844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3706,6 +3693,7 @@ MonoBehaviour:
   manager: {fileID: 1833606493}
   gavin: {fileID: 575214777}
   noiseHeard: 0
+  onDrawGizmos: 0
 --- !u!195 &1347845961
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4333,6 +4321,10 @@ PrefabInstance:
     - target: {fileID: 1982572592825652983, guid: e8ac69225060e903095a0e43a76e4e5d, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984699790035426267, guid: e8ac69225060e903095a0e43a76e4e5d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2044808790006436870, guid: e8ac69225060e903095a0e43a76e4e5d, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -5412,6 +5404,7 @@ MonoBehaviour:
   manager: {fileID: 1833606493}
   gavin: {fileID: 575214777}
   noiseHeard: 0
+  onDrawGizmos: 0
 --- !u!195 &1726926364
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -5727,6 +5720,8 @@ MonoBehaviour:
   enemies:
   - {fileID: 1172367834}
   - {fileID: 1726926361}
+  - {fileID: 1347845958}
+  - {fileID: 143398752}
   gavin: {fileID: 575214789}
   enemy: {fileID: 1172367845}
   soundExists: 0

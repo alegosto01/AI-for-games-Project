@@ -29,6 +29,8 @@ public class EnemySight : MonoBehaviour
     Gavin gavinScript;
     public bool noiseHeard;
 
+    public bool onDrawGizmos = false;
+
     private void Awake()
     {
         alertStage = AlertStage.Peaceful;
@@ -164,17 +166,21 @@ public class EnemySight : MonoBehaviour
     // code to draw the arc on the scene in unity
     private void OnDrawGizmos()
     {
-        source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-        Color c = Color.green;
-        if (alertStage == AlertStage.Intrigued)
+        if (onDrawGizmos)
         {
-            c = Color.Lerp(Color.green, Color.red, alertLevel / 100f);
+            source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
+            Color c = Color.green;
+            if (alertStage == AlertStage.Intrigued)
+            {
+                c = Color.Lerp(Color.green, Color.red, alertLevel / 100f);
+            }
+            else if (alertStage == AlertStage.Alerted)
+            {
+                c = Color.red;
+            }
+            Handles.color = c;
+            Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
         }
-        else if (alertStage == AlertStage.Alerted)
-        {
-            c = Color.red;
-        }
-        Handles.color = c;
-        Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+        
     }
 }

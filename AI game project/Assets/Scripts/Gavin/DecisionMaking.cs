@@ -7,6 +7,8 @@ public class DecisionMaking : MonoBehaviour
     private GavinVision gavinVision;
     public AStar astar;
     public bool attack = false;  // should gavin attack or not
+    public bool runAway = false;
+    public bool ranAway = false;
     // public bool unexploredPaths = false;  // this variable will be true if there are paths that weren't explored yet
     private float chasingTime = 2.0f;  // after how much time of not detecting enemies should attack go back to false
     private float timer = 0f;  // counts how much time isnt detecting enemies
@@ -22,6 +24,7 @@ public class DecisionMaking : MonoBehaviour
 
     private void Update()
     {
+        runAway = false;
         if (gavinVision.enemiesDetected)
         {
             float totalEnemiesHealth = 0;
@@ -34,11 +37,14 @@ public class DecisionMaking : MonoBehaviour
             {
                 attack = true;
             }
-            else {
-                if(!astar.changedPath) {
+            else if (!ranAway)
+            {
+                attack = false;
+                runAway = true;
+                //if(!astar.changedPath) {
 
-                    astar.ChangePath();
-                }
+                //    astar.ChangePath();
+                //}
             }
         }
         else if (attack)
