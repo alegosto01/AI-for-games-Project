@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    [Range(0.2f, 5)] public float timeScale;
+
     public List<GameObject> enemies = new List<GameObject>();
 
     public NavMeshAgent gavin;
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        timeScale = 1;
         gavinStats = gavin.gameObject.GetComponent<GavinStats>();
         enemyStats = enemy.gameObject.GetComponent<EnemyStats>();
 
@@ -61,6 +64,8 @@ public class GameManager : MonoBehaviour
         {
             DisplayGameOverScreen();
         }
+
+        Time.timeScale = timeScale;
     }
 
     // a function that turns isGavingMoving to true or false depending on if gavin is moving

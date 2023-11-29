@@ -62,6 +62,10 @@ public class ExploreState : State
     public MazeCell endPosition;
     public MazeCell currentCell;
 
+    public MazeCell doorCell;
+    public MazeCell otherSideDoor;
+    public MazeCell keyCell;
+
     public UnityEngine.AI.NavMeshAgent agent;
 
     public int optionCount = 0;
@@ -72,6 +76,11 @@ public class ExploreState : State
     public GameObject maze;
     public bool changedPath = false;
 
+    public bool gotTheKey = false;
+    public bool foundDoor = false;
+    public bool openedDoor = false;
+
+    public GameObject wallToRemove;
 
 
     public override State RunCurrentState()
@@ -160,37 +169,70 @@ public class ExploreState : State
                 grid[(int)cell.transform.position.x, (int)cell.transform.position.z] = cell;
                 if ((int)cell.transform.position.x == 0 && (int)cell.transform.position.z == 0)
                 {
-                    currentCell = cell;
-                    startPosition = cell;
+                    // currentCell = cell;
+                    // Debug.Log("change cell at start");
+                    // startPosition = cell;
                 }
             }
         }
         startPosition = grid[0, 0];
         currentCell = grid[0, 0];
-
+        
         GoToNextPoint();
     }
 
 
     public void GoToNextPoint()
     {
+        if(!openedDoor) {
+            if (currentCell == keyCell) {
+                gotTheKey = true;
+                if(foundDoor) {
+                    Debug.Log("I found the key and i know where the door is");
+                }
+                else {
+                    Debug.Log("I found the key but i don't know where the door is");
+                }
+            }
+            if (currentCell == doorCell || Vector3.Distance(doorCell.transform.position, transform.transform.position) < 0.4f) {
+                foundDoor = true;
+                if(gotTheKey) {
+                    Debug.Log("I found the door and i have the key");
+                    doorCell.ClearRightWall();
+                    otherSideDoor.ClearLeftWall();
+                    openedDoor = true;
+                    exploreCells.Add(otherSideDoor);
+                }
+                else {
+                    Debug.Log("I found the door and but i don't have the key");
+                }
+            }
+
+        }
+
+
         if (currentCell == endPosition)
         {
             Debug.Log("found exit!!");
         }
+        else if (foundDoor && gotTheKey && !openedDoor) {
+            agent.destination = doorCell.transform.position;
+        }
         else
         {
             List<MazeCell> list_neighbours = GetNeigbours(currentCell);
-            // Debug.Log(list_neighbours.Count);
+            Debug.Log("list neighbours count");
             if (list_neighbours.Count == 1)
             {
                 agent.destination = list_neighbours[0].transform.position;
                 currentCell = list_neighbours[0];
+
             }
             else if (list_neighbours.Count > 0)
             {
                 agent.destination = list_neighbours[0].transform.position;
                 currentCell = list_neighbours[0];
+
 
                 list_neighbours.RemoveAt(0);
                 foreach (MazeCell cell in list_neighbours)
@@ -202,6 +244,7 @@ public class ExploreState : State
             {
                 agent.destination = exploreCells[exploreCells.Count - 1].transform.position;
                 currentCell = exploreCells[exploreCells.Count - 1];
+
                 exploreCells.RemoveAt(exploreCells.Count - 1);
             }
             destination = agent.destination;
@@ -219,6 +262,7 @@ public class ExploreState : State
         destination = agent.destination;
 
         currentCell = exploreCells[exploreCells.Count - 1];
+
         exploreCells.RemoveAt(exploreCells.Count - 1);
         Debug.Log("changing the path");
     }
@@ -230,7 +274,7 @@ public class ExploreState : State
         MazeCell frontCell = null;
         MazeCell backCell = null;
         List<MazeCell> list_neighbours = new List<MazeCell>();
-
+        Debug.Log("CUrrent cell" + currentCell.transform.position);
         if (currentCell.transform.position.x > 0)
         {
             leftCell = grid[(int)currentCell.transform.position.x - 1, (int)currentCell.transform.position.z];
