@@ -37,7 +37,8 @@ public class GavinAttackState : State
 
     public override State RunCurrentState()
     {
-        Debug.Log("im attakcking");
+        Debug.Log("im attacking");
+        gameManager.gavinText.text = "Lets attack!";
         enemies = new List<GameObject>(GetComponentInParent<GavinVision>().enemiesInSight);  // a list with all the enemies that gavin can currently see
         if ((!decisionMaking.attack))
         {

@@ -8,6 +8,7 @@ using System.Linq;
 // This will need to be completelly changed
 public class ExploreState : State
 {
+    public GameManager gameManager;
     public Gavin gavinScript;
     //public GameObject gavin;
     //public GameObject enemy;
@@ -109,9 +110,9 @@ public class ExploreState : State
         //Debug.Log("destination = " + destination);
         //Debug.Log("agent.destination = " + agent.destination);
         //Debug.Log("Distance = " + Vector3.Distance(transform.position, agent.destination));
-        Debug.Log(agent.destination);
+        // Debug.Log(agent.destination);
         //Debug.Log(agent.speed);
-        if (Vector3.Distance(transform.position, agent.destination) < 0.4f)
+        if (Vector3.Distance(transform.position, agent.destination) < 0.5f)
         {
             GoToNextPoint();
             
@@ -189,15 +190,20 @@ public class ExploreState : State
                 gotTheKey = true;
                 if(foundDoor) {
                     Debug.Log("I found the key and i know where the door is");
+                    gameManager.gavinText.text = "I have the key now, let's go to the door!";
+
                 }
                 else {
                     Debug.Log("I found the key but i don't know where the door is");
+                    gameManager.gavinText.text = "I have the key now, let's find the door!";
+
                 }
             }
             if (currentCell == doorCell || Vector3.Distance(doorCell.transform.position, transform.transform.position) < 0.4f) {
                 foundDoor = true;
                 if(gotTheKey) {
                     Debug.Log("I found the door and i have the key");
+                    gameManager.gavinText.text = "I'll open the door!";
                     doorCell.ClearRightWall();
                     otherSideDoor.ClearLeftWall();
                     openedDoor = true;
@@ -205,6 +211,8 @@ public class ExploreState : State
                 }
                 else {
                     Debug.Log("I found the door and but i don't have the key");
+                    gameManager.gavinText.text = "I found the door but i don't have the keys";
+
                 }
             }
 
@@ -214,6 +222,7 @@ public class ExploreState : State
         if (currentCell == endPosition)
         {
             Debug.Log("found exit!!");
+            gameManager.gavinText.text = "I Found The Exit!!!";
         }
         else if (foundDoor && gotTheKey && !openedDoor) {
             agent.destination = doorCell.transform.position;
@@ -221,7 +230,7 @@ public class ExploreState : State
         else
         {
             List<MazeCell> list_neighbours = GetNeigbours(currentCell);
-            Debug.Log("list neighbours count");
+            // Debug.Log("list neighbours count");
             if (list_neighbours.Count == 1)
             {
                 agent.destination = list_neighbours[0].transform.position;
@@ -265,6 +274,8 @@ public class ExploreState : State
 
         exploreCells.RemoveAt(exploreCells.Count - 1);
         Debug.Log("changing the path");
+        gameManager.gavinText.text = "There are enemies there, i will change path";
+
     }
 
     public List<MazeCell> GetNeigbours(MazeCell currentCell)
@@ -274,7 +285,7 @@ public class ExploreState : State
         MazeCell frontCell = null;
         MazeCell backCell = null;
         List<MazeCell> list_neighbours = new List<MazeCell>();
-        Debug.Log("CUrrent cell" + currentCell.transform.position);
+        // Debug.Log("CUrrent cell" + currentCell.transform.position);
         if (currentCell.transform.position.x > 0)
         {
             leftCell = grid[(int)currentCell.transform.position.x - 1, (int)currentCell.transform.position.z];

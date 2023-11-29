@@ -5,10 +5,18 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
+
+    public Text enemiesText;
+    public Text gavinText;
+    public Text gavinStateText;
     [Range(0.2f, 5)] public float timeScale;
+
+    public GavinStateMachineManager stateMachineManager;
 
     public List<GameObject> enemies = new List<GameObject>();
 
@@ -53,6 +61,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        gavinStateText.text = stateMachineManager.currentState.gameObject.transform.name;
         Debug.Log("speed = " + gavin.speed);
         GavinMovingControl();
         HandleSoundPosition();
@@ -62,7 +71,7 @@ public class GameManager : MonoBehaviour
         GameOverCondition();
         if (gavinWon || enemiesWon)
         {
-            DisplayGameOverScreen();
+            //DisplayGameOverScreen();
         }
 
         Time.timeScale = timeScale;
