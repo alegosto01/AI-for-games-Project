@@ -101,12 +101,14 @@ public class ExploreState : State
         //Debug.Log("agent.destination = " + agent.destination);
         //Debug.Log("Distance = " + Vector3.Distance(transform.position, agent.destination));
         Debug.Log(agent.destination);
+        //Debug.Log(agent.speed);
         if (Vector3.Distance(transform.position, agent.destination) < 0.4f)
         {
             GoToNextPoint();
             
             if (decisionMaking.runAway && !changedPath)
             {
+                agent.speed = 3;
                 ChangePath();
                 Debug.Log("changing path");
             }
@@ -117,6 +119,20 @@ public class ExploreState : State
         {
             return attackState;
         }
+
+        //if (agent.velocity.magnitude < 0.1f)
+        //{
+        //    timer += Time.deltaTime;
+        //    if (timer > 0.5f)
+        //    {
+        //        if (timer > 0.6f)
+        //        {
+        //            timer = 0f;
+        //            return attackState;
+        //        }
+        //        ChangePath();
+        //    }
+        //}
         return this;
 
         
@@ -165,10 +181,10 @@ public class ExploreState : State
         else
         {
             List<MazeCell> list_neighbours = GetNeigbours(currentCell);
-            Debug.Log(list_neighbours.Count);
+            // Debug.Log(list_neighbours.Count);
             if (list_neighbours.Count == 1)
             {
-                agent.destination = list_neighbours[0].transform.position + new Vector3(0,0.35f,0);
+                agent.destination = list_neighbours[0].transform.position;
                 currentCell = list_neighbours[0];
             }
             else if (list_neighbours.Count > 0)

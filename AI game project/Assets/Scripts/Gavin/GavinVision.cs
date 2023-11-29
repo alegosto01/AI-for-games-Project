@@ -96,68 +96,78 @@ public class GavinVision : MonoBehaviour
             foreach (GameObject enemy in enemiesInArc)
             {
                 enemyInSight = CheckWithRayCasting(enemy);
+                //Debug.Log("enemyInSight = " + enemyInSight);
                 if (enemyInSight)
                 {
                     enemiesDetected = true;
                     if (!enemiesInSight.Contains(enemy))
                     {
+                        //Debug.Log("Add the enemy to enemies in sight");
                         enemiesInSight.Add(enemy);
                     }
                 }
 
             }
-        }
-        else  // if the arc area is empty we still want the enemies previously detected to be considered in sight, unless if they are too far away or
+        } // if the arc area is empty we still want the enemies previously detected to be considered in sight, unless if they are too far away or
         // behind a wall
+        List<GameObject> enemiesToDelete = new List<GameObject>() { };
+        foreach (GameObject enemy in enemiesInSight)
         {
-            List<GameObject> enemiesToDelete = new List<GameObject>() { };
-            foreach (GameObject enemy in enemiesInSight)
+            if (!CheckWithRayCasting(enemy))
             {
-                if (!CheckWithRayCasting(enemy))
-                {
-                    enemiesToDelete.Add(enemy);
-                }
+                //Debug.Log("Delete the enemy from enemies in sight");
+                enemiesToDelete.Add(enemy);
             }
-            foreach (GameObject enemy in enemiesToDelete)
-            {
-                enemiesInSight.Remove(enemy);
-            }
-            if (enemiesInSight.Count == 0)
-            {
-                enemiesDetected = false;
-            }
+        }
+        foreach (GameObject enemy in enemiesToDelete)
+        {
+            enemiesInSight.Remove(enemy);
+            //Debug.Log("Deleted");
+        }
+        if (enemiesInSight.Count == 0)
+        {
+            enemiesDetected = false;
         }
 
-        // if gavin is under attack we consider that he sees the enemy closest to him (which will be the one attacking him)
+        // if gavin is under attack we consider that he sees all the enemies that are in attack state
         if (gameManager.gavinUnderAttack)
         {
-            List<Tuple<float, GameObject>> distances = new List<Tuple<float, GameObject>>();
+            //List<Tuple<float, GameObject>> distances = new List<Tuple<float, GameObject>>();
+            //foreach (GameObject enemy in gameManager.enemies)
+            //{
+            //    distances.Add(new Tuple<float, GameObject>(Vector3.Distance(enemy.transform.position, transform.position), enemy));
+            //}
+
+            //if (distances.Count > 0)
+            //{
+            //    (float minDistance, GameObject nearestEnemy) = distances[0];
+
+            //    foreach ((float distance, GameObject enemy) in distances)
+            //    {
+            //        if (distance < minDistance)
+            //        {
+            //            minDistance = distance;
+            //            nearestEnemy = enemy;
+            //        }
+            //    }
+
+            //    if (!enemiesInSight.Contains(nearestEnemy))
+            //    {
+            //        enemiesInSight.Add(nearestEnemy);
+            //        enemiesDetected = true;
+            //    }
+            //}
+
             foreach (GameObject enemy in gameManager.enemies)
             {
-                distances.Add(new Tuple<float, GameObject>(Vector3.Distance(enemy.transform.position, transform.position), enemy));
-            }
-
-            if (distances.Count > 0)
-            {
-                (float minDistance, GameObject nearestEnemy) = distances[0];
-
-                foreach ((float distance, GameObject enemy) in distances)
+                if (enemy.GetComponent<EnemyStateMachineManager>().currentState == enemy.GetComponentInChildren<AttackState>())
                 {
-                    if (distance < minDistance)
+                    if (!enemiesInSight.Contains(enemy))
                     {
-                        minDistance = distance;
-                        nearestEnemy = enemy;
+                        enemiesInSight.Add(enemy);
                     }
                 }
-
-                if (!enemiesInSight.Contains(nearestEnemy))
-                {
-                    enemiesInSight.Add(nearestEnemy);
-                    enemiesDetected = true;
-                }
             }
-
-
         }
     }
 }

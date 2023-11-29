@@ -17,9 +17,11 @@ public class GavinHearing : MonoBehaviour
     public float timer = 0;
     public float gapTime = 0.5f;
     public Gavin gavinScript;
+    public DecisionMaking decisionMaking;
 
     public void Awake() {
         gavinScript = GetComponentInParent<Gavin>();
+        decisionMaking = GetComponent<DecisionMaking>();
     }
 
     private void Update() {
@@ -68,7 +70,7 @@ public class GavinHearing : MonoBehaviour
                 enemiesInArc.Add(c.gameObject);
                 enemiesHeard = true;
                 // if gavin hear enemies will go to stealth mode
-                if(!gavinScript.stealth) {
+                if(!gavinScript.stealth && !decisionMaking.runAway) {
 
                     gavinScript.SwitchToStealth();
                 }

@@ -8,7 +8,6 @@ public class DecisionMaking : MonoBehaviour
     public AStar astar;
     public bool attack = false;  // should gavin attack or not
     public bool runAway = false;
-    public bool ranAway = false;
     // public bool unexploredPaths = false;  // this variable will be true if there are paths that weren't explored yet
     private float chasingTime = 2.0f;  // after how much time of not detecting enemies should attack go back to false
     private float timer = 0f;  // counts how much time isnt detecting enemies
@@ -16,15 +15,19 @@ public class DecisionMaking : MonoBehaviour
     [SerializeField] GameObject manager;
     private GameManager gameManager;
 
+    GavinStats gavinStats;
+
+    public float runAwayTimer = 0f;
+
     private void Start()
     {
         gavinVision = GetComponent<GavinVision>();
         gameManager = manager.GetComponent<GameManager>();
+        gavinStats = GetComponent<GavinStats>();
     }
 
     private void Update()
     {
-        runAway = false;
         if (gavinVision.enemiesDetected)
         {
             float totalEnemiesHealth = 0;
@@ -33,11 +36,11 @@ public class DecisionMaking : MonoBehaviour
                 totalEnemiesHealth += enemy.GetComponent<EnemyStats>().health;
             }
 
-            if (totalEnemiesHealth < 250)
+            if (totalEnemiesHealth < 2.5*gavinStats.health)
             {
                 attack = true;
             }
-            else if (!ranAway)
+            else
             {
                 attack = false;
                 runAway = true;
@@ -47,7 +50,7 @@ public class DecisionMaking : MonoBehaviour
                 //}
             }
         }
-        else if (attack)
+        else if (attack && !gameManager.gavinUnderAttack)
         {
             timer += Time.deltaTime;
             if (timer > chasingTime)
@@ -57,9 +60,36 @@ public class DecisionMaking : MonoBehaviour
             }
         }
 
-        if (gameManager.gavinUnderAttack)
+        if (gameManager.gavinUnderAttack && !runAway)
         {
             attack = true;
+        }
+
+        if (runAway)
+        {
+            runAwayTimer += Time.deltaTime;
+            if (runAwayTimer > 4f)
+            {
+                float totalEnemiesHealth = 0f;
+                foreach (GameObject enemy in gameManager.enemies)
+                {
+                    Vector3 direction = enemy.transform.position - transform.position;
+                    Physics.Raycast(transform.position, direction, out RaycastHit hit, 12f);
+                    if (hit.rigidbody)
+                    {
+                        if (hit.rigidbody.tag == "Enemy")
+                        {
+                            totalEnemiesHealth += enemy.GetComponent<EnemyStats>().health;
+                        }
+                    }
+                }
+
+                if (totalEnemiesHealth < 2.5 * gavinStats.health)
+                {
+                    runAway = false;
+                }
+            }
+            
         }
     }
 }
