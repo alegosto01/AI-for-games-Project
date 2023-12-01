@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
 
 
 // This will need to be completelly changed
@@ -10,7 +11,7 @@ public class ExploreState : State
 {
     public GameManager gameManager;
     public Gavin gavinScript;
-    //public GameObject gavin;
+    public GameObject gavin;
     //public GameObject enemy;
     public GavinAttackState attackState;
     //public float maxDistance = 1.0f;
@@ -204,10 +205,15 @@ public class ExploreState : State
                 if(gotTheKey) {
                     Debug.Log("I found the door and i have the key");
                     gameManager.gavinText.text = "I'll open the door!";
-                    doorCell.ClearRightWall();
-                    otherSideDoor.ClearLeftWall();
+                    //doorCell.ClearRightWall();
+                    //otherSideDoor.ClearLeftWall();
+                    //gavin.transform.position += new Vector3(0.5f, 0, 0);
+                    agent.Warp(grid[5, 9].transform.position);
+                    agent.ResetPath();
+                    currentCell = otherSideDoor;
+                    //agent.destination = grid[6,9].transform.position;
                     openedDoor = true;
-                    exploreCells.Add(otherSideDoor);
+                    //exploreCells.Add(otherSideDoor);
                 }
                 else {
                     Debug.Log("I found the door and but i don't have the key");

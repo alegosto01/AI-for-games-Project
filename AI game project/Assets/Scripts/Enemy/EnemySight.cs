@@ -30,6 +30,7 @@ public class EnemySight : MonoBehaviour
     public bool noiseHeard;
 
     public bool onDrawGizmos = false;
+    public bool onDrawGizmosSoundMaking = false;
 
     private void Awake()
     {
@@ -118,6 +119,8 @@ public class EnemySight : MonoBehaviour
         return noiseHeard;
     }
 
+   
+
     // a function that updates the alert stage depending on if the player is in sight or not
     private void UpdateAlertStage(bool playerInSight, bool isThereNoise)
     {
@@ -134,7 +137,7 @@ public class EnemySight : MonoBehaviour
                 // if the alert stage is currently intrigued and the player is in sight (or heard) the alert level should start to increase
                 if (playerInSight || isThereNoise)
                 {
-                    alertLevel += 200*Time.deltaTime;
+                    alertLevel += 150*Time.deltaTime;
                     // if the alert lever is equal to or more than 100 then the alert stage should be updated to alerted
                     if (alertLevel >= 100)
                     {
@@ -144,7 +147,7 @@ public class EnemySight : MonoBehaviour
                 // if the alert stage is currently intrigued and the player is not in sight (or heard) the alert level should start to decrease
                 else
                 {
-                    alertLevel -= 200*Time.deltaTime;
+                    alertLevel -= 150*Time.deltaTime;
                     // if the alert lever is equal to or smaller than 0 then the alert stage should be updated back to peacuful
                     if (alertLevel <= 0)
                     {
@@ -181,6 +184,14 @@ public class EnemySight : MonoBehaviour
             Handles.color = c;
             Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
         }
-        
+
+        if (onDrawGizmosSoundMaking)
+        {
+            source = Quaternion.AngleAxis(-360 / 2, transform.up) * transform.forward;
+            Color c = Color.green;
+            Handles.color = c;
+            Handles.DrawSolidArc(transform.position, transform.up, source, 360, gavinScript.noiseFov);
+        }
+
     }
 }

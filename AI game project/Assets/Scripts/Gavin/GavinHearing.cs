@@ -19,6 +19,8 @@ public class GavinHearing : MonoBehaviour
     public Gavin gavinScript;
     public DecisionMaking decisionMaking;
 
+    public bool onDrawGizmos = false;
+
     public void Awake() {
         gavinScript = GetComponentInParent<Gavin>();
         decisionMaking = GetComponent<DecisionMaking>();
@@ -49,13 +51,18 @@ public class GavinHearing : MonoBehaviour
         }
     }
 
-    // code to draw the arc on the scene in unity
-    //private void OnDrawGizmos() {
-    //    source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
-    //    Color c = Color.blue;
-    //    Handles.color = c;
-    //    Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
-    //}
+    //code to draw the arc on the scene in unity
+    private void OnDrawGizmos()
+    {
+        if (onDrawGizmos)
+        {
+            source = Quaternion.AngleAxis(-fovAngle / 2, transform.up) * transform.forward;
+            Color c = Color.blue;
+            Handles.color = c;
+            Handles.DrawSolidArc(transform.position, transform.up, source, fovAngle, fov);
+        }
+        
+    }
 
 
     public void CheckNoise() {
