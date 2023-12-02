@@ -60,10 +60,10 @@ public class DecisionMaking : MonoBehaviour
             }
         }
 
-        if (gameManager.gavinUnderAttack && !runAway)
-        {
-            attack = true;
-        }
+        //if (gameManager.gavinUnderAttack && !runAway)
+        //{
+        //    attack = true;
+        //}
 
         if (runAway)
         {
