@@ -158,6 +158,7 @@ public class GavinVision : MonoBehaviour
             //    }
             //}
 
+            enemiesDetected = true;
             foreach (GameObject enemy in gameManager.enemies)
             {
                 if (enemy.GetComponent<EnemyStateMachineManager>().currentState == enemy.GetComponentInChildren<AttackState>())
