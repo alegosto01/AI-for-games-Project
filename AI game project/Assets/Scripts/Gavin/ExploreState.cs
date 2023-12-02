@@ -168,6 +168,18 @@ public class ExploreState : State
         {
             if ((int)cell.transform.position.x <= 10 && (int)cell.transform.position.x >= 0 && (int)cell.transform.position.z <= 10 && (int)cell.transform.position.z >= 0)
             {
+                if (cell.gameObject.name == "Exit") {
+                    endPosition = cell;
+                }
+                else if (cell.gameObject.name == "Door") {
+                    doorCell = cell;
+                }
+                else if (cell.gameObject.name == "OtherSideDoor") {
+                    otherSideDoor = cell;
+                }
+                else if (cell.gameObject.name == "Key") {
+                    keyCell = cell;
+                }
                 grid[(int)cell.transform.position.x, (int)cell.transform.position.z] = cell;
                 if ((int)cell.transform.position.x == 0 && (int)cell.transform.position.z == 0)
                 {
@@ -200,20 +212,13 @@ public class ExploreState : State
 
                 }
             }
-            if (currentCell == doorCell || Vector3.Distance(doorCell.transform.position, transform.transform.position) < 0.4f) {
+                if (currentCell == doorCell || Vector3.Distance(doorCell.transform.position, transform.transform.position) < 0.4f) {
                 foundDoor = true;
                 if(gotTheKey) {
                     Debug.Log("I found the door and i have the key");
                     gameManager.gavinText.text = "I'll open the door!";
-                    //doorCell.ClearRightWall();
-                    //otherSideDoor.ClearLeftWall();
-                    //gavin.transform.position += new Vector3(0.5f, 0, 0);
-                    agent.Warp(grid[5, 9].transform.position);
-                    agent.ResetPath();
-                    currentCell = otherSideDoor;
-                    //agent.destination = grid[6,9].transform.position;
+                    // Maze1_OpenDoor();
                     openedDoor = true;
-                    //exploreCells.Add(otherSideDoor);
                 }
                 else {
                     Debug.Log("I found the door and but i don't have the key");
@@ -350,6 +355,12 @@ public class ExploreState : State
         //Debug.Log(neighbors);
 
         return list_neighbours;
+    }
+
+    public void Maze1_OpenDoor() {
+        agent.Warp(grid[5, 9].transform.position);
+        agent.ResetPath();
+        currentCell = otherSideDoor;
     }
 }   
     //e
