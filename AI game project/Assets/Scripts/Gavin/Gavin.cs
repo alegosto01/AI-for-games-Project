@@ -92,17 +92,22 @@ public class Gavin : MonoBehaviour
         stealth = true;
         agent.speed = stealthSpeed;
         noiseFov = noiseRadiusStealth;
-        Debug.Log("Switch to Stealth");
 
     }
     public void SwitchToRun() {
         stealth = false;
         agent.speed = runningSpeed;
         noiseFov = noiseRadiusRunning;
-        Debug.Log("Switch to Run");
     }
 
-   
+    public void SwitchToRunAway()
+    {
+        stealth = false;
+        agent.speed = 4f;
+        noiseFov = noiseRadiusRunning;
+    }
+
+
 
     // private void OnDrawGizmos()
     // {
@@ -115,7 +120,7 @@ public class Gavin : MonoBehaviour
     //     // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
     //     // visionSource = Quaternion.AngleAxis(-visionFovAngle / 2, transform.up) * new Vector3(30,0,0);
     //     Color c = Color.red;
-       
+
     //     Handles.color = c;
     //     Handles.DrawSolidArc(transform.position, transform.up, visionSourceRightForward, visionFovAngle, visionFov);
     //     Handles.DrawSolidArc(transform.position,transform.up, visionSourceLeftForward, visionFovAngle, visionFov);
@@ -125,7 +130,7 @@ public class Gavin : MonoBehaviour
 
     //     noiseSource = Quaternion.AngleAxis(-noiseFovAngle / 2, transform.up) * transform.forward;
     //     Color soundColor = Color.blue;
-      
+
     //     Handles.color = soundColor;
     //     Handles.DrawSolidArc(transform.position, transform.up, noiseSource, noiseFovAngle, noiseFov);
     // }

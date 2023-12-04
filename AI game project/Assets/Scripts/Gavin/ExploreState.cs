@@ -121,11 +121,12 @@ public class ExploreState : State
             {
                 agent.speed = 3;
                 ChangePath();
-                Debug.Log("changing path");
             }
             //Debug.Log("I go to next point");
         }
 
+        //Debug.Log("decisionMaking.attack = " + decisionMaking.attack);
+        //Debug.Log("decisionMaking.runAway = " + decisionMaking.runAway);
         if (decisionMaking.attack && !decisionMaking.runAway)
         {
             return attackState;
@@ -217,7 +218,7 @@ public class ExploreState : State
                 if(gotTheKey) {
                     Debug.Log("I found the door and i have the key");
                     gameManager.gavinText.text = "I'll open the door!";
-                    // Maze1_OpenDoor();
+                    OpenDoor();
                     openedDoor = true;
                 }
                 else {
@@ -357,8 +358,8 @@ public class ExploreState : State
         return list_neighbours;
     }
 
-    public void Maze1_OpenDoor() {
-        agent.Warp(grid[5, 9].transform.position);
+    public void OpenDoor() {
+        agent.Warp(otherSideDoor.transform.position);
         agent.ResetPath();
         currentCell = otherSideDoor;
     }

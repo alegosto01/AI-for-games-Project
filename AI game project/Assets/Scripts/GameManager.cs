@@ -44,7 +44,8 @@ public class GameManager : MonoBehaviour
     float prevHealth;
     bool haveBeenAttacked = false;
     float lastAttackedMoment;
-
+    Transform[] listEnemies;
+    public ExploreState exploreState;
 
 
     void Start()
@@ -56,13 +57,22 @@ public class GameManager : MonoBehaviour
         gameOverText.gameObject.SetActive(false);
 
         prevHealth = gavinStats.health;
+
+        listEnemies = exploreState.maze.GetComponentsInChildren<Transform>();
+
+        foreach (Transform item in listEnemies)
+        {
+            if(item.gameObject.tag == "Enemy")
+            {
+                enemies.Add(item.gameObject);
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         gavinStateText.text = stateMachineManager.currentState.gameObject.transform.name;
-        Debug.Log("speed = " + gavin.speed);
         GavinMovingControl();
         HandleSoundPosition();
         gavinUnderAttack = AttackControl();
@@ -75,6 +85,8 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = timeScale;
+
+    
     }
 
     // a function that turns isGavingMoving to true or false depending on if gavin is moving

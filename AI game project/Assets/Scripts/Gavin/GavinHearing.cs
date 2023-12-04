@@ -113,8 +113,15 @@ public class GavinHearing : MonoBehaviour
                 gavinScript.SwitchToRun();
             }
 
+            
+
             enemiesNextToMe.Clear();
             enemiesHeard = false;
+        }
+
+        if (decisionMaking.runAway)
+        {
+            gavinScript.SwitchToRunAway();
         }
     }
 }

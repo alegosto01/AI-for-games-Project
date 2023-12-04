@@ -137,7 +137,7 @@ public class EnemySight : MonoBehaviour
                 // if the alert stage is currently intrigued and the player is in sight (or heard) the alert level should start to increase
                 if (playerInSight || isThereNoise)
                 {
-                    alertLevel += 150*Time.deltaTime;
+                    alertLevel += 75*Time.deltaTime;
                     // if the alert lever is equal to or more than 100 then the alert stage should be updated to alerted
                     if (alertLevel >= 100)
                     {
@@ -147,7 +147,7 @@ public class EnemySight : MonoBehaviour
                 // if the alert stage is currently intrigued and the player is not in sight (or heard) the alert level should start to decrease
                 else
                 {
-                    alertLevel -= 150*Time.deltaTime;
+                    alertLevel -= 75*Time.deltaTime;
                     // if the alert lever is equal to or smaller than 0 then the alert stage should be updated back to peacuful
                     if (alertLevel <= 0)
                     {

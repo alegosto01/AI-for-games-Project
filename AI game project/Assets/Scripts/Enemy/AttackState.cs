@@ -23,7 +23,7 @@ public class AttackState : State
     public override State RunCurrentState()
     {
         distance = Vector3.Distance(agent.transform.position, target.transform.position);
-        if (distance > maxDistance)
+        if (distance > maxDistance || !target.activeSelf)
         {
             return chaseState;
         }

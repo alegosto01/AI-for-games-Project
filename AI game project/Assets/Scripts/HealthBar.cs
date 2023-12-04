@@ -9,7 +9,10 @@ public class HealthBar : MonoBehaviour
     public GameObject character;
     private GavinStats gavinStats;
     private EnemyStats enemyStats;
-
+    public EnemySight enemySight;
+    public Image[] imageComponents;
+    public Image imageComponent;
+    public Color c = Color.green;
     private Slider slider;
 
     [SerializeField] private Transform canvas;
@@ -26,6 +29,16 @@ public class HealthBar : MonoBehaviour
         }
 
         slider = GetComponent<Slider>();
+
+        enemySight = character.GetComponent<EnemySight>();
+        imageComponents = GetComponentsInChildren<Image>();
+        foreach(Image image in imageComponents)
+        {
+            if(image.gameObject.name == "Fill")
+            {
+                imageComponent = image;
+            }
+        }
     }
 
     private void Update()
@@ -38,6 +51,11 @@ public class HealthBar : MonoBehaviour
         else
         {
             slider.value = enemyStats.health / 100f;
+            c = Color.Lerp(Color.green, Color.red, enemySight.alertLevel / 100f);
+            imageComponent.color = c;
         }
+
+        
+
     }
 }

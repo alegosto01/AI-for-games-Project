@@ -163,7 +163,7 @@ public class GavinVision : MonoBehaviour
             {
                 if (enemy.GetComponent<EnemyStateMachineManager>().currentState == enemy.GetComponentInChildren<AttackState>())
                 {
-                    if (!enemiesInSight.Contains(enemy))
+                    if (!enemiesInSight.Contains(enemy) && enemy.activeSelf)
                     {
                         enemiesInSight.Add(enemy);
                     }
