@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     float lastAttackedMoment;
     Transform[] listEnemies;
     public ExploreState exploreState;
+    public float textClearerTimer = 0;
 
 
     void Start()
@@ -86,7 +87,12 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = timeScale;
 
-    
+        Debug.Log(textClearerTimer);
+        if(textClearerTimer > 7) {
+            ClearText();
+            textClearerTimer = 0;
+        }
+        textClearerTimer += Time.deltaTime;
     }
 
     // a function that turns isGavingMoving to true or false depending on if gavin is moving
@@ -197,5 +203,9 @@ public class GameManager : MonoBehaviour
         }
 
         gameOverText.gameObject.SetActive(true);
+    }
+
+    public void ClearText() {
+            gavinText.text = " ";
     }
 }

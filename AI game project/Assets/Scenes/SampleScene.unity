@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657832, g: 0.49641222, b: 0.57481664, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -386,7 +386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 705, y: -60.370003}
+  m_AnchoredPosition: {x: 158, y: 19}
   m_SizeDelta: {x: 335.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &117657425
@@ -411,11 +411,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 46
+    m_FontSize: 40
     m_FontStyle: 1
     m_BestFit: 1
-    m_MinSize: 2
-    m_MaxSize: 53
+    m_MinSize: 0
+    m_MaxSize: 46
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1345,7 +1345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4645367326568320958, guid: 212d4d50c19bb8884879207bf6e57e32, type: 3}
       propertyPath: m_Name
-      value: Maze1_skip3enemies (1)
+      value: Maze1_version2
       objectReference: {fileID: 0}
     - target: {fileID: 4645367326568320958, guid: 212d4d50c19bb8884879207bf6e57e32, type: 3}
       propertyPath: m_IsActive
@@ -4629,8 +4629,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 705, y: -153}
-  m_SizeDelta: {x: 335.8, y: 136.1}
+  m_AnchoredPosition: {x: 99, y: -54}
+  m_SizeDelta: {x: 335.8, y: 93.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1413604922
 MonoBehaviour:
@@ -4658,7 +4658,7 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 53
+    m_MaxSize: 46
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -6652,6 +6652,7 @@ MonoBehaviour:
   gavinJustStartedMoving: 0
   gavinUnderAttack: 0
   exploreState: {fileID: 482363990}
+  textClearerTimer: 0
 --- !u!4 &1833606495
 Transform:
   m_ObjectHideFlags: 0
@@ -7004,7 +7005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 705, y: -267}
+  m_AnchoredPosition: {x: 95, y: -127}
   m_SizeDelta: {x: 335.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913978320
@@ -7033,7 +7034,7 @@ MonoBehaviour:
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 2
-    m_MaxSize: 53
+    m_MaxSize: 46
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -7567,7 +7568,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4645367326568320958, guid: 212d4d50c19bb8884879207bf6e57e32, type: 3}
       propertyPath: m_Name
-      value: Maze1_skip3enemies
+      value: Maze1_version1
       objectReference: {fileID: 0}
     - target: {fileID: 4645367326568320958, guid: 212d4d50c19bb8884879207bf6e57e32, type: 3}
       propertyPath: m_IsActive
