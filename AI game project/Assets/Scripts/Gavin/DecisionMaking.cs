@@ -5,7 +5,6 @@ using UnityEngine;
 public class DecisionMaking : MonoBehaviour
 {
     private GavinVision gavinVision;
-    public AStar astar;
     public bool attack = false;  // should gavin attack or not
     public bool runAway = false;
     // public bool unexploredPaths = false;  // this variable will be true if there are paths that weren't explored yet
@@ -33,7 +32,7 @@ public class DecisionMaking : MonoBehaviour
     {
         if (runAway)
         {
-            gameManager.gavinText.text = "Fuuuck run awayyy!!!";
+            gameManager.gavinText.text = "Run awayyy!!!";
         }
         if (gavinVision.enemiesDetected)
         {
