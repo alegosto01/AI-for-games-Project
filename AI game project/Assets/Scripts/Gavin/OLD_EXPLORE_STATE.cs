@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunAwayState : MonoBehaviour
+public class OLD_EXPLORE_STATE : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
